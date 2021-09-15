@@ -1,0 +1,1194 @@
+Only in LM-BFF: .git
+Only in LM-BFF: .gitignore
+diff --color -ru LM-BFF/README.md prompt_finetuning/README.md
+--- LM-BFF/README.md	2021-09-13 17:44:49.648657598 -0700
++++ prompt_finetuning/README.md	2021-09-15 14:40:20.711892449 -0700
+@@ -1,3 +1,7 @@
++**CLUES**: Prompt finetuning code for CLUES is built on top of original LM-BFF codebase, scripts for all prompt finetuning experiments for CLUES can be found in `experiments.sh`.
++
++Original README shown in below:
++
+ # LM-BFF (**B**etter **F**ew-shot **F**ine-tuning of **L**anguage **M**odels)
+ 
+ This is the implementation of the paper [Making Pre-trained Language Models Better Few-shot Learners](https://arxiv.org/pdf/2012.15723.pdf). LM-BFF is short for **b**etter **f**ew-shot **f**ine-tuning of **l**anguage **m**odels.
+Only in prompt_finetuning: README.md~
+Only in LM-BFF: requirements.txt
+Only in LM-BFF: run_experiment.sh
+diff --color -ru LM-BFF/run.py prompt_finetuning/run.py
+--- LM-BFF/run.py	2021-09-13 17:43:32.529130946 -0700
++++ prompt_finetuning/run.py	2021-08-11 11:14:07.564256220 -0700
+@@ -16,7 +16,7 @@
+ from transformers import HfArgumentParser, TrainingArguments, set_seed
+ 
+ from src.dataset import FewShotDataset
+-from src.models import BertForPromptFinetuning, RobertaForPromptFinetuning, resize_token_type_embeddings
++from src.models import BertForPromptFinetuning, RobertaForPromptFinetuning, resize_token_type_embeddings, ElectraForPromptFinetuning, DebertaForPromptFinetuning
+ from src.trainer import Trainer
+ from src.processors import processors_mapping, num_labels_mapping, output_modes_mapping, compute_metrics_mapping, bound_mapping
+ 
+@@ -67,6 +67,23 @@
+     """
+     Arguments for dynamic training.
+     """
++    clues_seed: int = field(
++        default=1,
++        metadata = {'help': 'Seed identifier for CLUES splits'}
++    )
++
++    data_train: str = field(
++        default='.',
++        metadata={'help': 'filename of train data'}
++    )
++    data_dev: str = field(
++        default='.',
++        metadata={'help': 'filename of dev data'}
++    )
++    data_test: str = field(
++        default='.',
++        metadata={'help': 'filename of test data'}
++    )
+     num_k: Optional[int] = field(
+         default=16,
+         metadata={"help": "Number of training instances per class"}
+@@ -139,6 +156,12 @@
+         metadata={"help": "Set the tag and find the result easier in the log."}
+     )
+ 
++    # maximum demostrations to collect for each example
++    demo_max: int = field(
++        default=1000,
++        metadata={'help': 'Maximum number of demo examples to collect'}
++    )
++
+     # For filtering when using demonstrations
+     demo_filter: bool = field(
+         default=False,
+@@ -146,7 +169,7 @@
+     )
+ 
+     demo_filter_rate: float = field(
+-        default=0.5,
++        default=0.5, 
+         metadata={"help": "Only use top-x\% similar instances in demonstrations"}
+     )
+ 
+@@ -437,6 +460,10 @@
+             model_fn = RobertaForPromptFinetuning
+         elif config.model_type == 'bert':
+             model_fn = BertForPromptFinetuning
++        elif config.model_type == 'deberta':
++            model_fn = DebertaForPromptFinetuning
++        elif config.model_type == 'electra':
++            model_fn = ElectraForPromptFinetuning
+         else:
+             raise NotImplementedError
+     elif model_args.few_shot_type == 'finetune':
+@@ -477,7 +504,7 @@
+     )
+ 
+     # For BERT, increase the size of the segment (token type) embeddings
+-    if config.model_type == 'bert':
++    if config.model_type in ['bert', 'electra'] :
+         model.resize_token_embeddings(len(tokenizer))
+         resize_token_type_embeddings(model, new_num_types=10, random_segment=model_args.random_segment)
+ 
+@@ -492,13 +519,13 @@
+     model.tokenizer = tokenizer
+ 
+     # Build metric
+-    def build_compute_metrics_fn(task_name: str) -> Callable[[EvalPrediction], Dict]:
++    def build_compute_metrics_fn(task_name: str, num_sample: int) -> Callable[[EvalPrediction], Dict]:
+         def compute_metrics_fn(p: EvalPrediction):
+             # Note: the eval dataloader is sequential, so the examples are in order.
+             # We average the logits over each sample for using demonstrations.
+             predictions = p.predictions
+             num_logits = predictions.shape[-1]
+-            logits = predictions.reshape([eval_dataset.num_sample, -1, num_logits])
++            logits = predictions.reshape([num_sample, -1, num_logits])
+             logits = logits.mean(axis=0)
+             
+             if num_logits == 1:
+@@ -507,13 +534,18 @@
+                 preds = np.argmax(logits, axis=1)
+ 
+             # Just for sanity, assert label ids are the same.
+-            label_ids = p.label_ids.reshape([eval_dataset.num_sample, -1])
++            label_ids = p.label_ids.reshape([num_sample, -1])
+             label_ids_avg = label_ids.mean(axis=0)
+             label_ids_avg = label_ids_avg.astype(p.label_ids.dtype)
+             assert (label_ids_avg - label_ids[0]).mean() < 1e-2
+             label_ids = label_ids[0]
+ 
+-            return compute_metrics_mapping[task_name](task_name, preds, label_ids)
++            if task_name in ['clue-mnli']: 
++                return compute_metrics_mapping['mnli']('mnli', preds, label_ids)
++            elif task_name in ['clue-sst-2']:
++                return compute_metrics_mapping['sst-2']('sst-2', preds, label_ids)
++            else:
++                return compute_metrics_mapping[task_name](task_name, preds, label_ids)
+ 
+         return compute_metrics_fn
+     
+@@ -522,8 +554,8 @@
+         model=model,
+         args=training_args,
+         train_dataset=train_dataset,
+-        eval_dataset=eval_dataset,
+-        compute_metrics=build_compute_metrics_fn(data_args.task_name)
++        eval_dataset=test_dataset,
++        compute_metrics=build_compute_metrics_fn(data_args.task_name, test_dataset.num_sample)
+     )
+ 
+     # Training
+@@ -533,7 +565,7 @@
+         if training_args.save_at_last:
+             trainer.save_model(training_args.output_dir)
+  
+-        if trainer.is_world_master():
++        if True:#trainer.is_world_master():
+             tokenizer.save_pretrained(training_args.output_dir)
+             torch.save(model_args, os.path.join(training_args.output_dir, "model_args.bin"))
+             torch.save(data_args, os.path.join(training_args.output_dir, "data_args.bin"))
+@@ -563,14 +595,17 @@
+         eval_datasets = [eval_dataset]
+ 
+         for eval_dataset in eval_datasets:
+-            trainer.compute_metrics = build_compute_metrics_fn(eval_dataset.args.task_name)
++            trainer.compute_metrics = build_compute_metrics_fn(eval_dataset.args.task_name, eval_dataset.num_sample)
+             output = trainer.evaluate(eval_dataset=eval_dataset)
+-            eval_result = output.metrics 
+-
++            eval_result = output.metrics
++            
++            _model_name = model_args.model_name_or_path.split('/')[-1]
+             output_eval_file = os.path.join(
+-                training_args.output_dir, f"eval_results_{eval_dataset.args.task_name}.txt"
++                training_args.output_dir,
++                f"eval_results_{eval_dataset.args.task_name}_{_model_name}_{eval_dataset.args.data_train}.txt"
+             )
+-            if trainer.is_world_master():
++
++            if True:#trainer.is_world_master():
+                 with open(output_eval_file, "w") as writer:
+                     logger.info("***** Eval results {} *****".format(eval_dataset.args.task_name))
+                     for key, value in eval_result.items():
+@@ -590,14 +625,16 @@
+             )
+ 
+         for test_dataset in test_datasets:
+-            trainer.compute_metrics = build_compute_metrics_fn(test_dataset.args.task_name)
++            trainer.compute_metrics = build_compute_metrics_fn(test_dataset.args.task_name, test_dataset.num_sample)
+             output = trainer.evaluate(eval_dataset=test_dataset)
+             test_result = output.metrics
+ 
++            _model_name = model_args.model_name_or_path.split('/')[-1]
+             output_test_file = os.path.join(
+-                training_args.output_dir, f"test_results_{test_dataset.args.task_name}.txt"
++                training_args.output_dir,
++                f"test_results_{test_dataset.args.task_name}_{_model_name}_{test_dataset.args.data_train}.txt"
+             )
+-            if trainer.is_world_master():
++            if True:#trainer.is_world_master():
+                 with open(output_test_file, "w") as writer:
+                     logger.info("***** Test results {} *****".format(test_dataset.args.task_name))
+                     for key, value in test_result.items():
+diff --color -ru LM-BFF/src/dataset.py prompt_finetuning/src/dataset.py
+--- LM-BFF/src/dataset.py	2021-09-13 17:43:32.529130946 -0700
++++ prompt_finetuning/src/dataset.py	2021-08-11 12:14:06.227460365 -0700
+@@ -174,7 +174,7 @@
+                 part = part.replace('_', ' ') 
+                 # handle special case when T5 tokenizer might add an extra space
+                 if len(part) == 1:
+-                    new_tokens.append(tokenizer._convert_token_to_id(part))
++                    new_tokens.append(tokenizer._convert_token_to_id_with_added_voc(part))
+                 else:
+                     new_tokens += enc(part)
+ 
+@@ -284,9 +284,9 @@
+                 if self.label_to_word[key][0] not in ['<', '[', '.', ',']:
+                     # Make sure space+word is in the vocabulary
+                     assert len(tokenizer.tokenize(' ' + self.label_to_word[key])) == 1
+-                    self.label_to_word[key] = tokenizer._convert_token_to_id(tokenizer.tokenize(' ' + self.label_to_word[key])[0])
++                    self.label_to_word[key] = tokenizer._convert_token_to_id_with_added_voc(tokenizer.tokenize(' ' + self.label_to_word[key])[0])
+                 else:
+-                    self.label_to_word[key] = tokenizer._convert_token_to_id(self.label_to_word[key])
++                    self.label_to_word[key] = tokenizer._convert_token_to_id_with_added_voc(self.label_to_word[key])
+                 logger.info("Label {} to word {} ({})".format(key, tokenizer._convert_id_to_token(self.label_to_word[key]), self.label_to_word[key]))
+             
+             if len(self.label_list) > 1:
+@@ -318,11 +318,12 @@
+         # Cache name distinguishes mode, task name, tokenizer, and length. So if you change anything beyond these elements, make sure to clear your cache.
+         cached_features_file = os.path.join(
+             cache_dir if cache_dir is not None else args.data_dir,
+-            "cached_{}_{}_{}_{}".format(
++            "cached_{}_{}_{}_{}_{}".format(
+                 mode,
+                 tokenizer.__class__.__name__,
+                 str(args.max_seq_length),
+                 args.task_name,
++                str(args.data_train)
+             ),
+         )
+ 
+@@ -341,12 +342,12 @@
+                 logger.info(f"Creating features from dataset file at {args.data_dir}")
+ 
+                 # The support examples are sourced from the training set.
+-                self.support_examples = self.processor.get_train_examples(args.data_dir)
++                self.support_examples = self.processor.get_train_examples(args.data_dir, args.data_train)
+ 
+                 if mode == "dev":
+-                    self.query_examples = self.processor.get_dev_examples(args.data_dir)
++                    self.query_examples = self.processor.get_dev_examples(args.data_dir, args.data_dev)
+                 elif mode == "test":
+-                    self.query_examples = self.processor.get_test_examples(args.data_dir)
++                    self.query_examples = self.processor.get_test_examples(args.data_dir, args.data_test)
+                 else:
+                     self.query_examples = self.support_examples
+ 
+@@ -432,8 +433,15 @@
+                                     print("    %.4f %s | %s" % (score, self.support_examples[support_idx].label, self.support_examples[support_idx].text_a)) # debug
+                 else:
+                     # Using demonstrations without filtering
+-                    context_indices = [support_idx for support_idx in support_indices
+-                               if support_idx != query_idx or mode != "train"]
++                    if self.use_demo:
++                        # only keep this amount of demos at maximum (for full-set training)
++                        #context_indices = [support_idx for support_idx in support_indices if support_idx != query_idx or mode != "train"]
++                        if len(support_indices)<=self.args.demo_max:
++                            context_indices=list(set(support_indices) - set([query_idx]))
++                        else:
++                            context_indices = random.sample(support_indices, self.args.demo_max)
++                    else: # no demo
++                        context_indices = []
+ 
+                 # We'll subsample context_indices further later.
+                 self.example_idx.append((query_idx, context_indices, sample_idx))
+@@ -472,6 +480,8 @@
+         """
+         Select demonstrations from provided examples.
+         """
++        if len(context_examples) == 0: # no demostrations
++            return []
+         max_demo_per_label = 1
+         counts = {k: 0 for k in self.label_list}
+         if len(self.label_list) == 1:
+diff --color -ru LM-BFF/src/models.py prompt_finetuning/src/models.py
+--- LM-BFF/src/models.py	2021-09-13 17:43:32.529130946 -0700
++++ prompt_finetuning/src/models.py	2021-07-14 00:19:45.000000000 -0700
+@@ -3,8 +3,12 @@
+ import torch
+ import torch.nn as nn
+ import transformers
+-from transformers.modeling_bert import BertPreTrainedModel, BertForSequenceClassification, BertModel, BertOnlyMLMHead
+-from transformers.modeling_roberta import RobertaForSequenceClassification, RobertaModel, RobertaLMHead, RobertaClassificationHead
++from transformers.models.bert.modeling_bert import BertPreTrainedModel, BertForSequenceClassification, BertModel, BertOnlyMLMHead
++from transformers.models.electra.modeling_electra import ElectraPreTrainedModel, ElectraModel, ElectraGeneratorPredictions
++from transformers.models.roberta.modeling_roberta import RobertaPreTrainedModel, RobertaModel, RobertaLMHead, RobertaClassificationHead
++from transformers.models.deberta_v2.modeling_deberta_v2 import DebertaV2PreTrainedModel, DebertaV2Model, DebertaV2OnlyMLMHead
++from transformers.models.deberta.modeling_deberta import DebertaPreTrainedModel, DebertaModel, DebertaOnlyMLMHead
++#from transformers.modeling_t5 import T5PreTrainedModel, T5EncoderModel
+ from transformers.modeling_outputs import SequenceClassifierOutput
+ 
+ import logging
+@@ -16,6 +20,8 @@
+     """
+     if hasattr(model, 'bert'):
+         old_token_type_embeddings = model.bert.embeddings.token_type_embeddings
++    elif hasattr(model, 'electra'):
++        old_token_type_embeddings = model.electra.embeddings.token_type_embeddings
+     else:
+         raise NotImplementedError
+     new_token_type_embeddings = nn.Embedding(new_num_types, old_token_type_embeddings.weight.size(1))
+@@ -25,6 +31,8 @@
+     model.config.type_vocab_size = new_num_types
+     if hasattr(model, 'bert'):
+         model.bert.embeddings.token_type_embeddings = new_token_type_embeddings
++    elif hasattr(model, 'electra'):
++        model.electra.embeddings.token_type_embeddings = new_token_type_embeddings
+     else:
+         raise NotImplementedError
+ 
+@@ -111,9 +119,305 @@
+             output = (torch.exp(logits[..., 1].unsqueeze(-1)) * (self.ub - self.lb) + self.lb,)
+         return ((loss,) + output) if loss is not None else output
+ 
++class DebertaForPromptFinetuning(DebertaPreTrainedModel):
++#    class DebertaForPromptFinetuning(DebertaV2PreTrainedModel):
++    def __init__(self, config):
++        super().__init__(config)
++        self.num_labels = config.num_labels
++        #self.deberta = DebertaV2Model(config)
++        self.deberta = DebertaModel(config)
++        #self.cls = DebertaV2OnlyMLMHead(config)
++        self.cls = DebertaOnlyMLMHead(config)
++        self.init_weights()
++
++        # These attributes should be assigned once the model is initialized
++        self.model_args = None
++        self.data_args = None
++        self.label_word_list = None
++
++        # For regression
++        self.lb = None
++        self.ub = None
++
++        # For label search.
++        self.return_full_softmax = None
++
++    def forward(
++        self,
++        input_ids=None,
++        attention_mask=None,
++        token_type_ids=None,
++        mask_pos=None,
++        labels=None,
++    ):
++        batch_size = input_ids.size(0)
++
++        if mask_pos is not None:
++            mask_pos = mask_pos.squeeze()
++
++        # Encode everything
++        outputs = self.deberta(
++            input_ids,
++            attention_mask=attention_mask,
++            token_type_ids=token_type_ids,
++            output_hidden_states=True
++        )
++
++        # Get <mask> token representation
++        #sequence_output, pooled_output = outputs[:2]
++        sequence_output = outputs.hidden_states[-1] # specific for deberta
++        sequence_mask_output = sequence_output[torch.arange(sequence_output.size(0)), mask_pos]
++
++        # Logits over vocabulary tokens
++        prediction_mask_scores = self.cls(sequence_mask_output)
++
++        # Exit early and only return mask logits.
++        if self.return_full_softmax:
++            if labels is not None:
++                return torch.zeros(1, out=prediction_mask_scores.new()), prediction_mask_scores
++            return prediction_mask_scores
++
++        # Return logits for each label
++        logits = []
++        for label_id in range(len(self.label_word_list)):
++            logits.append(prediction_mask_scores[:, self.label_word_list[label_id]].unsqueeze(-1))
++        logits = torch.cat(logits, -1)
++
++        # Regression task
++        if self.config.num_labels == 1:
++            logsoftmax = nn.LogSoftmax(-1)
++            logits = logsoftmax(logits) # Log prob of right polarity
++
++        loss = None
++        if labels is not None:
++            if self.num_labels == 1:
++                # Regression task
++                loss_fct = nn.KLDivLoss(log_target=True)
++                labels = torch.stack([1 - (labels.view(-1) - self.lb) / (self.ub - self.lb), (labels.view(-1) - self.lb) / (self.ub - self.lb)], -1)
++                loss = loss_fct(logits.view(-1, 2), labels)
++            else:
++                loss_fct = nn.CrossEntropyLoss()
++                loss = loss_fct(logits.view(-1, logits.size(-1)), labels.view(-1))
++
++        output = (logits,)
++        if self.num_labels == 1:
++            # Regression output
++            output = (torch.exp(logits[..., 1].unsqueeze(-1)) * (self.ub - self.lb) + self.lb,)
++        return ((loss,) + output) if loss is not None else output
++
++# T5 doesn't have a pretrained MLM head?    
++class T5ForPromptFinetuning(BertPreTrainedModel):
++    def __init__(self, config):
++        super().__init__(config)
++        self.num_labels = config.num_labels
++        self.bert = BertModel(config)
++        self.cls = BertOnlyMLMHead(config)
++        self.init_weights()
++
++        # These attributes should be assigned once the model is initialized
++        self.model_args = None
++        self.data_args = None
++        self.label_word_list = None
++
++        # For regression
++        self.lb = None
++        self.ub = None
++
++        # For label search.
++        self.return_full_softmax = None
++
++    def forward(
++        self,
++        input_ids=None,
++        attention_mask=None,
++        token_type_ids=None,
++        mask_pos=None,
++        labels=None,
++    ):
++        batch_size = input_ids.size(0)
++
++        if mask_pos is not None:
++            mask_pos = mask_pos.squeeze()
++
++        # Encode everything
++        outputs = self.bert(
++            input_ids,
++            attention_mask=attention_mask,
++            token_type_ids=token_type_ids
++        )
++
++        # Get <mask> token representation
++        sequence_output, pooled_output = outputs[:2]
++        sequence_mask_output = sequence_output[torch.arange(sequence_output.size(0)), mask_pos]
+ 
++        # Logits over vocabulary tokens
++        prediction_mask_scores = self.cls(sequence_mask_output)
++
++        # Exit early and only return mask logits.
++        if self.return_full_softmax:
++            if labels is not None:
++                return torch.zeros(1, out=prediction_mask_scores.new()), prediction_mask_scores
++            return prediction_mask_scores
++
++        # Return logits for each label
++        logits = []
++        for label_id in range(len(self.label_word_list)):
++            logits.append(prediction_mask_scores[:, self.label_word_list[label_id]].unsqueeze(-1))
++        logits = torch.cat(logits, -1)
++
++        # Regression task
++        if self.config.num_labels == 1:
++            logsoftmax = nn.LogSoftmax(-1)
++            logits = logsoftmax(logits) # Log prob of right polarity
++
++        loss = None
++        if labels is not None:
++            if self.num_labels == 1:
++                # Regression task
++                loss_fct = nn.KLDivLoss(log_target=True)
++                labels = torch.stack([1 - (labels.view(-1) - self.lb) / (self.ub - self.lb), (labels.view(-1) - self.lb) / (self.ub - self.lb)], -1)
++                loss = loss_fct(logits.view(-1, 2), labels)
++            else:
++                loss_fct = nn.CrossEntropyLoss()
++                loss = loss_fct(logits.view(-1, logits.size(-1)), labels.view(-1))
++
++        output = (logits,)
++        if self.num_labels == 1:
++            # Regression output
++            output = (torch.exp(logits[..., 1].unsqueeze(-1)) * (self.ub - self.lb) + self.lb,)
++        return ((loss,) + output) if loss is not None else output
++    
++
++class ElectraForPromptFinetuning(ElectraPreTrainedModel):
++    def __init__(self, config):
++        super().__init__(config)
++        self.num_labels = config.num_labels
++        self.electra = ElectraModel(config)
++        self.generator_predictions = ElectraGeneratorPredictions(config)
++
++        self.generator_lm_head = nn.Linear(config.embedding_size, config.vocab_size)
++        self.init_weights()
++
++        # These attributes should be assigned once the model is initialized
++        self.model_args = None
++        self.data_args = None
++        self.label_word_list = None
++
++        # For regression
++        self.lb = None
++        self.ub = None
++
++        # For label search.
++        self.return_full_softmax = None
++
++
++    def get_output_embeddings(self):
++        return self.generator_lm_head
++
++    def set_output_embeddings(self, word_embeddings):
++        self.generator_lm_head = word_embeddings
++
++    def forward(
++            self,
++            input_ids=None,
++            attention_mask=None,
++            token_type_ids=None,
++            mask_pos=None,
++            labels=None,
++    ):
++        batch_sized = input_ids.size(0)
++        
++        if mask_pos is not None:
++            mask_pos = mask_pos.squeeze()
++
++        # Encode everything
++        outputs = self.electra(
++            input_ids,
++            attention_mask=attention_mask,
++            token_type_ids=token_type_ids
++        )
++
++        # Get <mask> token representation
++        sequence_output = outputs[0]
++        
++        sequence_mask_output = sequence_output[torch.arange(sequence_output.size(0)), mask_pos]
++
++        # Logits over vocabulary tokens
++        prediction_mask_scores = self.generator_lm_head(self.generator_predictions(sequence_mask_output))
++
++        # Exit early and only return mask logits.
++        if self.return_full_softmax:
++            if labels is not None:
++                return torch.zeros(1, out=prediction_mask_scores.new()), prediction_mask_scores
++            return prediction_mask_scores
++
++        # Return logits for each label
++        logits = []
++        for label_id in range(len(self.label_word_list)):
++            logits.append(prediction_mask_scores[:, self.label_word_list[label_id]].unsqueeze(-1))
++        logits = torch.cat(logits, -1)
++
++        # Regression task
++        if self.config.num_labels == 1:
++            logsoftmax = nn.LogSoftmax(-1)
++            logits = logsoftmax(logits) # Log prob of right polarity
++
++        loss = None
++        if labels is not None:
++            if self.num_labels == 1:
++                # Regression task
++                loss_fct = nn.KLDivLoss(log_target=True)
++                labels = torch.stack([1 - (labels.view(-1) - self.lb) / (self.ub - self.lb), (labels.view(-1) - self.lb) / (self.ub - self.lb)], -1)
++                loss = loss_fct(logits.view(-1, 2), labels)
++            else:
++                loss_fct = nn.CrossEntropyLoss()
++                loss = loss_fct(logits.view(-1, logits.size(-1)), labels.view(-1))
++
++        output = (logits,)
++        if self.num_labels == 1:
++            # Regression output
++            output = (torch.exp(logits[..., 1].unsqueeze(-1)) * (self.ub - self.lb) + self.lb,)
++        return ((loss,) + output) if loss is not None else output
++    
++        '''
++        generator_hidden_states = self.electra(
++            input_ids,
++            attention_mask,
++            token_type_ids,
++            position_ids,
++            head_mask,
++            inputs_embeds,
++            output_attentions,
++            output_hidden_states,
++            return_dict,
++        )
++
++        # Get <mask> token representation
++        
++        generator_sequence_output = generator_hidden_states[0]
++
++        prediction_scores = self.generator_predictions(generator_sequence_output)
++        prediction_scores = self.generator_lm_head(prediction_scores)
++
++        loss = None
++        # Masked language modeling softmax layer
++        if labels is not None:
++            loss_fct = nn.CrossEntropyLoss()  # -100 index = padding token
++            loss = loss_fct(prediction_scores.view(-1, self.config.vocab_size), labels.view(-1))
++
++        if not return_dict:
++            output = (prediction_scores,) + generator_hidden_states[1:]
++            return ((loss,) + output) if loss is not None else output
++
++        return MaskedLMOutput(
++            loss=loss,
++            logits=prediction_scores,
++            hidden_states=generator_hidden_states.hidden_states,
++            attentions=generator_hidden_states.attentions,
++        )
++        '''
+ 
+-class RobertaForPromptFinetuning(BertPreTrainedModel):
++class RobertaForPromptFinetuning(RobertaPreTrainedModel):
+ 
+     def __init__(self, config):
+         super().__init__(config)
+diff --color -ru LM-BFF/src/processors.py prompt_finetuning/src/processors.py
+--- LM-BFF/src/processors.py	2021-09-13 17:43:32.529130946 -0700
++++ prompt_finetuning/src/processors.py	2021-08-11 11:30:48.129891623 -0700
+@@ -109,6 +109,300 @@
+             examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
+         return examples
+ 
++class ConllProcessor(DataProcessor):
++    """Processor for the CoNLL data set (CLUE version)."""
++
++    def get_example_from_tensor_dict(self, tensor_dict):
++        """See base class."""
++        return InputExample(
++            tensor_dict["idx"].numpy(),
++            tensor_dict["premise"].numpy().decode("utf-8"),
++            tensor_dict["hypothesis"].numpy().decode("utf-8"),
++            str(tensor_dict["label"].numpy()),
++        )
++
++    def get_train_examples(self, data_dir):
++        """See base class."""
++        return self._create_examples(self._read_tsv(os.path.join(data_dir, "train.tsv")), "train")
++
++    def get_dev_examples(self, data_dir):
++        """See base class."""
++        return self._create_examples(self._read_tsv(os.path.join(data_dir, "dev.tsv")), "dev")
++
++
++    def get_test_examples(self, data_dir):
++        """See base class."""
++        #return self._create_examples(self._read_tsv(os.path.join(data_dir, "test.tsv")), "test")
++        # for wikiann
++        return self._create_test_examples(self._read_tsv(os.path.join(data_dir, "test.tsv")), "test", path=data_dir)
++
++    def get_labels(self):
++        """See base class."""
++        return ["person", "organization", "location", 'other']
++
++    # read from CoNLL 2003 data format for training
++    # sent1, sent2, auditjudgement, label, auditcomment, id
++    def _create_examples(self, lines, set_type):
++        sent_dict = {}
++        examples = []
++        sent_idx_dict = {}
++        sent_idx = 0
++        for (i, line) in enumerate(lines):
++            text_a = line[1] # sentence
++            label_str = line[2]
++            if 'people names' in label_str:
++                label = 'person'
++            elif 'organizations' in label_str:
++                label = 'organization'
++            else:
++                label = 'location'
++
++            entities_str = line[3] # ['England', 'Pakistan', 'The Oval']
++            entities = eval(entities_str)
++
++            if text_a in sent_idx_dict:
++                sent_id = sent_idx_dict[text_a]
++            else:
++                sent_idx += 1
++                sent_id = sent_idx
++                sent_idx_dict[text_a] = sent_id
++            
++            j = 0 # entity token id
++            for ent in entities:
++                # sent_id can be used to group token predictions to list
++                guid = '%s-%d-%s-%d' % (set_type, sent_id, line[0], j) # id in first field
++                text_b = ent
++                examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
++                j += 1
++                if text_a not in sent_dict:
++                    sent_dict[text_a] = set()
++                sent_dict[text_a].add(ent)
++
++        # add all other tokens with label 'other'
++        for text_a in sent_dict:
++            ent_candidates = text_a.split(' ')
++            sent_id = sent_idx_dict[text_a]
++            other_id = 0
++            for ent in ent_candidates:
++                if ent in sent_dict[text_a]:
++                    continue
++                
++                guid = '%s-%d-O%d' % (set_type, sent_id, other_id) 
++                text_b = ent
++                label = 'other'
++                examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
++                other_id += 1
++
++        return examples
++
++    def _create_test_examples(self, lines, set_type, path=None):
++        examples = []
++        sent_idx_dict = {}
++        sent_idx = 0
++
++        answer_entities_list = {}
++        for (i, line) in enumerate(lines):
++            text_a = line[1] # sentence
++            label_str = line[2]
++            if 'people names' in label_str:
++                label = 'person'
++                _labelid = 0
++            elif 'organizations' in label_str:
++                label = 'organization'
++                _labelid = 1
++            else:
++                label = 'location'
++                _labelid = 2
++
++            # set to empty to enumerate all words
++            
++            entities_str = '[]' #line[3] # ['England', 'Pakistan', 'The Oval']
++
++            entities = eval(entities_str)
++
++            if text_a in sent_idx_dict:
++                sent_id = sent_idx_dict[text_a]
++            else:
++                sent_idx += 1
++                sent_id = sent_idx
++                sent_idx_dict[text_a] = sent_id
++
++            answer_entities = eval(line[3])
++            # store entities list as
++            if sent_idx not in answer_entities_list:
++                answer_entities_list[sent_idx] = {}
++                
++            answer_entities_list[sent_idx][_labelid] = answer_entities
++            
++        # add all other tokens with label 'other'
++        sent_idx_output = []
++        for text_a in sent_idx_dict:
++            ent_candidates = text_a.split() # split by any number of spaces
++            sent_id = sent_idx_dict[text_a]
++            other_id = 0
++            for ent in ent_candidates:
++                guid = '%s-%d-O%d' % (set_type, sent_id, other_id)
++                sent_idx_output.append((sent_id, ent))
++                text_b = ent
++                label = 'other'
++                examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
++                other_id += 1
++
++        # save label list to numpy
++        import pickle as pk
++        with open(os.path.join(path, 'test_data_list.pk'),  'wb') as handle:
++            pk.dump([sent_idx_output, answer_entities_list], handle)
++
++        return examples
++
++
++class SQUAD2Processor(DataProcessor):
++    """Processor for the SQUAD2 data set (CLUE version)."""
++
++    def get_example_from_tensor_dict(self, tensor_dict):
++        """See base class."""
++        return InputExample(
++            tensor_dict["idx"].numpy(),
++            tensor_dict["premise"].numpy().decode("utf-8"),
++            tensor_dict["hypothesis"].numpy().decode("utf-8"),
++            str(tensor_dict["label"].numpy()),
++        )
++
++    def get_train_examples(self, data_dir):
++        """See base class."""
++        return self._create_examples(self._read_tsv(os.path.join(data_dir, "train.tsv")), "train")
++
++    def get_dev_examples(self, data_dir):
++        """See base class."""
++        return self._create_examples(self._read_tsv(os.path.join(data_dir, "dev.tsv")), "dev")
++
++
++    def get_test_examples(self, data_dir):
++        """See base class."""
++        return self._create_examples(self._read_tsv(os.path.join(data_dir, "test.tsv")), "test")
++
++    def get_labels(self):
++        """See base class."""
++        return ['yes', 'no']
++
++    # read from SQUAD 2.0 data format for training
++    # id, context, question, list_of_answer, no answer?
++    def _create_examples(self, lines, set_type):
++        examples = []
++        for (i, line) in enumerate(lines):
++            eid = line[0]
++            context = line[1]
++            question = line[2]
++            answer = eval(line[3])
++            noanswer = eval(line[4])
++
++            n_answers = len(answer)
++
++            context_tokens = context.strip().split()
++
++            labels = ['no'] * len(context_tokens)
++
++            for j in range(n_answers):
++                answer_str = answer[j]['text']
++                answer_start = answer[j]['answer_start']
++
++                answer_str_tokens = answer_str.strip().split()
++                n_answer_str_tokens = len(answer_str_tokens)
++                answer_str_start_token = len(context[:answer_start].strip().split()) # split text prior to get answer token index
++                if answer_str_tokens[0] not in context[answer_start:].strip().split()[0]:
++                    print ('===Answer tokens:', answer_str_tokens)
++                    print ('Two tokens:', 'C:', context[answer_start:].strip().split()[0], 'A:',answer_str_tokens[0])
++                    print ('Context snippet:', context[answer_start:].strip())
++                    print ('Answer token index wrong!!!')
++                    continue
++                #assert answer_str_tokens[0] in context[answer_start:].strip().split()[0], 'Answer token index wrong!!!'
++                #assert context[answer_start:].strip().split(' ')[0] == answer_str_tokens[0], 'Answer token index wrong!!!'
++                for k in range(n_answer_str_tokens):
++                    labels[answer_str_start_token + k] = 'yes'
++                    
++            text_a = ' '.join([context, question])
++            for j, context_token in enumerate(context_tokens):
++                guid = '%s-%s_%d' % (set_type, eid, j)
++                text_b = context_token
++                label = labels[j]
++                examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
++                
++        return examples
++
++    
++class CLUEMnliProcessor(DataProcessor):
++    """Processor for the MultiNLI data set (CLUE version)."""
++
++    def get_example_from_tensor_dict(self, tensor_dict):
++        """See base class."""
++        return InputExample(
++            tensor_dict["idx"].numpy(),
++            tensor_dict["premise"].numpy().decode("utf-8"),
++            tensor_dict["hypothesis"].numpy().decode("utf-8"),
++            str(tensor_dict["label"].numpy()),
++        )
++
++    def get_train_examples(self, data_dir, filename):
++        """See base class."""
++        # GLUE style
++        #return self._create_examples(self._read_tsv(os.path.join(data_dir, "train.tsv")), "train")
++        # CLUE stype train: 
++        return self._create_clue_examples(self._read_tsv(os.path.join(data_dir, filename)), "train")
++
++    def get_dev_examples(self, data_dir, filename):
++        """See base class."""
++        # GLUE style
++        #return self._create_examples(self._read_tsv(os.path.join(data_dir, "dev.tsv")), "dev")
++        # CLUE style dev: (same to train)
++        return self._create_clue_examples(self._read_tsv(os.path.join(data_dir, filename)), "dev")
++
++    def get_test_examples(self, data_dir, filename):
++        """See base class."""
++        return self._create_examples(self._read_tsv(os.path.join(data_dir, filename)), "test")
++
++    def get_labels(self):
++        """See base class."""
++        return ["contradiction", "entailment", "neutral"]
++
++    # read from Saghar's data format for training
++    # sent1, sent2, auditjudgement, label, auditcomment, id
++    def _create_clue_human_eval_examples(self, lines, set_type):
++        examples = []
++        for (i, line) in enumerate(lines):
++            if i == 0:
++                continue
++            guid = '%s-%s' % (set_type, line[-1]) # id in last field
++            text_a = line[0]
++            text_b = line[1]
++            label = line[3]
++            examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
++        return examples
++
++    def _create_examples(self, lines, set_type):
++        """Creates examples for the training, dev and test sets."""
++        examples = []
++        for (i, line) in enumerate(lines):
++            if i == 0:
++                continue
++            guid = "%s-%s" % (set_type, line[0])
++            text_a = line[1]
++            text_b = line[2]
++            label = line[4]
++            examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
++        return examples
++
++    def _create_clue_examples(self, lines, set_type):
++        """Creates examples for the training, dev sets."""
++        examples = []
++        for (i, line) in enumerate(lines):
++            # no header here
++            guid = "%s-%s" % (set_type, line[0])
++            text_a = line[2]
++            text_b = line[3]
++            label = line[-1]
++            examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
++        return examples
++
+ 
+ class MnliMismatchedProcessor(MnliProcessor):
+     """Processor for the MultiNLI Mismatched data set (GLUE version)."""
+@@ -246,6 +540,46 @@
+             examples.append(InputExample(guid=guid, text_a=text_a, text_b=None, label=label))
+         return examples
+ 
++class CLUESst2Processor(DataProcessor):
++    """Processor for the SST-2 data set (CLUES version)."""
++
++    def get_example_from_tensor_dict(self, tensor_dict):
++        """See base class."""
++        return InputExample(
++            tensor_dict["idx"].numpy(),
++            tensor_dict["sentence"].numpy().decode("utf-8"),
++            None,
++            str(tensor_dict["label"].numpy()),
++        )
++
++    def get_train_examples(self, data_dir, filename):
++        """See base class."""
++        return self._create_examples(self._read_tsv(os.path.join(data_dir, filename)), "train")
++
++    def get_dev_examples(self, data_dir, filename):
++        """See base class."""
++        return self._create_examples(self._read_tsv(os.path.join(data_dir, filename)), "dev")
++
++    def get_test_examples(self, data_dir, filename):
++        """See base class."""
++        return self._create_examples(self._read_tsv(os.path.join(data_dir, filename)), "test")
++
++    def get_labels(self):
++        """See base class."""
++        return ["0", "1"]
++
++    def _create_examples(self, lines, set_type):
++        """Creates examples for the training, dev and test sets."""
++        examples = []
++        text_index = 0
++        for (i, line) in enumerate(lines):
++            guid = "%s-%s" % (set_type, i)
++            text_a = line[text_index]
++            label = line[1]
++            examples.append(InputExample(guid=guid, text_a=text_a, text_b=None, label=label))
++        return examples
++    
++
+ 
+ class StsbProcessor(DataProcessor):
+     """Processor for the STS-B data set (GLUE version)."""
+@@ -537,11 +871,16 @@
+ # Add your task to the following mappings
+ 
+ processors_mapping = {
++    'squad2':SQUAD2Processor(),
++    'conll':ConllProcessor(),
++    'wikiann':ConllProcessor(),
+     "cola": ColaProcessor(),
+     "mnli": MnliProcessor(),
++    "clue-mnli": CLUEMnliProcessor(),
+     "mnli-mm": MnliMismatchedProcessor(),
+     "mrpc": MrpcProcessor(),
+     "sst-2": Sst2Processor(),
++    "clue-sst-2": CLUESst2Processor(),
+     "sts-b": StsbProcessor(),
+     "qqp": QqpProcessor(),
+     "qnli": QnliProcessor(),
+@@ -557,10 +896,15 @@
+ }
+ 
+ num_labels_mapping = {
++    'squad2': 2,
++    'conll': 4,
++    'wikiann': 4,
+     "cola": 2,
+     "mnli": 3,
++    "clue-mnli": 3,
+     "mrpc": 2,
+     "sst-2": 2,
++    "clue-sst-2": 2,
+     "sts-b": 1,
+     "qqp": 2,
+     "qnli": 2,
+@@ -576,11 +920,16 @@
+ }
+ 
+ output_modes_mapping = {
++    'squad2': 'classification',
++    'conll': 'classification',
++    'wikiann' : 'classification',
+     "cola": "classification",
+     "mnli": "classification",
++    'clue-mnli': 'classification', 
+     "mnli-mm": "classification",
+     "mrpc": "classification",
+     "sst-2": "classification",
++    "clue-sst-2": "classification",
+     "sts-b": "regression",
+     "qqp": "classification",
+     "qnli": "classification",
+@@ -597,11 +946,16 @@
+ 
+ # Return a function that takes (task_name, preds, labels) as inputs
+ compute_metrics_mapping = {
++    'squad2': text_classification_metrics,
++    'conll': glue_compute_metrics,
++    'wikiann': glue_compute_metrics,
+     "cola": glue_compute_metrics,
+     "mnli": glue_compute_metrics,
++    "clue-mnli": glue_compute_metrics,
+     "mnli-mm": glue_compute_metrics,
+     "mrpc": glue_compute_metrics,
+     "sst-2": glue_compute_metrics,
++    "clue-sst-2": glue_compute_metrics,
+     "sts-b": glue_compute_metrics,
+     "qqp": glue_compute_metrics,
+     "qnli": glue_compute_metrics,
+diff --color -ru LM-BFF/src/trainer.py prompt_finetuning/src/trainer.py
+--- LM-BFF/src/trainer.py	2021-09-13 17:43:32.529130946 -0700
++++ prompt_finetuning/src/trainer.py	2021-08-11 11:23:40.127153891 -0700
+@@ -50,7 +50,7 @@
+     run_hp_search_optuna,
+     run_hp_search_ray,
+ )
+-from transformers.modeling_auto import MODEL_FOR_QUESTION_ANSWERING_MAPPING
++#from transformers.modeling_auto import MODEL_FOR_QUESTION_ANSWERING_MAPPING
+ from transformers.modeling_utils import PreTrainedModel
+ from transformers.optimization import AdamW, get_linear_schedule_with_warmup
+ from transformers.tokenization_utils_base import PreTrainedTokenizerBase
+@@ -329,7 +329,7 @@
+         logging_loss_scalar = 0.0
+         model.zero_grad()
+         train_iterator = trange(
+-            epochs_trained, int(num_train_epochs), desc="Epoch", disable=not self.is_local_master()
++            epochs_trained, int(num_train_epochs), desc="Epoch"#, disable=not self.is_local_master()
+         )
+         for epoch in train_iterator:
+             if isinstance(train_dataloader, DataLoader) and isinstance(train_dataloader.sampler, DistributedSampler):
+@@ -348,7 +348,6 @@
+                 self._past = None
+ 
+             for step, inputs in enumerate(epoch_iterator):
+-
+                 # Skip past any already trained steps if resuming training
+                 if steps_trained_in_current_epoch > 0:
+                     steps_trained_in_current_epoch -= 1
+@@ -404,10 +403,11 @@
+                     # ----------------------------------------------------------------------
+ 
+                     metrics = None
+-                    if self.args.evaluate_during_training and self.global_step % self.args.eval_steps == 0:
++                    if self.global_step % self.args.eval_steps == 0:
+                         output = self.evaluate()
+                         metrics = output.metrics
+                         objective = self.dev_objective(metrics)
++                        logger.info('=== Dev result at Step {}: {}'.format(self.global_step, objective))
+                         if objective > self.objective:
+                             logger.info("Best dev result: {}".format(objective))
+                             self.objective = objective
+@@ -433,7 +433,7 @@
+             delattr(self, "_past")
+ 
+         logger.info("\n\nTraining completed. Do not forget to share your model on huggingface.co/models =)\n\n")
+-        return TrainOutput(self.global_step, tr_loss / self.global_step), self.objective
++        return TrainOutput(self.global_step, tr_loss / self.global_step, self.objective), self.objective
+ 
+ 
+     """
+diff --color -ru LM-BFF/tools/generate_k_shot_data.py prompt_finetuning/tools/generate_k_shot_data.py
+--- LM-BFF/tools/generate_k_shot_data.py	2021-09-13 17:43:32.529130946 -0700
++++ prompt_finetuning/tools/generate_k_shot_data.py	2021-08-13 16:53:19.447740842 -0700
+@@ -7,13 +7,15 @@
+ from pandas import DataFrame
+ 
+ def get_label(task, line):
+-    if task in ["MNLI", "MRPC", "QNLI", "QQP", "RTE", "SNLI", "SST-2", "STS-B", "WNLI", "CoLA"]:
++    if task in ['CLUE-MNLI', "MNLI", "MRPC", "QNLI", "QQP", "RTE", "SNLI", "SST-2", "STS-B", "WNLI", "CoLA", 'CONLL']:
+         # GLUE style
+         line = line.strip().split('\t')
+         if task == 'CoLA':
+             return line[1]
+         elif task == 'MNLI':
+             return line[-1]
++        elif task == 'CLUE-MNLI':
++            return line[-1]
+         elif task == 'MRPC':
+             return line[0]
+         elif task == 'QNLI':
+@@ -38,7 +40,7 @@
+ def load_datasets(data_dir, tasks):
+     datasets = {}
+     for task in tasks:
+-        if task in ["MNLI", "MRPC", "QNLI", "QQP", "RTE", "SNLI", "SST-2", "STS-B", "WNLI", "CoLA"]:
++        if task in ['CLUE-MNLI', "MNLI", "MRPC", "QNLI", "QQP", "RTE", "SNLI", "SST-2", "STS-B", "WNLI", "CoLA"]:
+             # GLUE style (tsv)
+             dataset = {}
+             dirname = os.path.join(data_dir, task)
+@@ -63,13 +65,13 @@
+             datasets[task] = dataset
+     return datasets
+ 
+-def split_header(task, lines):
++def split_header(task, lines, hasHeader=False):
+     """
+     Returns if the task file has a header or not. Only for GLUE tasks.
+     """
+-    if task in ["CoLA"]:
++    if task in ["CoLA"] or (task in ['CLUE-MNLI'] and not hasHeader):
+         return [], lines
+-    elif task in ["MNLI", "MRPC", "QNLI", "QQP", "RTE", "SNLI", "SST-2", "STS-B", "WNLI"]:
++    elif task in ["MNLI", "MRPC", "QNLI", "QQP", "RTE", "SNLI", "SST-2", "STS-B", "WNLI"] or (task in ['CLUE-MNLI'] and hasHeader):
+         return lines[0:1], lines[1:]
+     else:
+         raise ValueError("Unknown GLUE task.")
+@@ -79,10 +81,11 @@
+     parser.add_argument("--k", type=int, default=16,
+         help="Training examples for each class.")
+     parser.add_argument("--task", type=str, nargs="+", 
+-        default=['SST-2', 'sst-5', 'mr', 'cr', 'mpqa', 'subj', 'trec', 'CoLA', 'MRPC', 'QQP', 'STS-B', 'MNLI', 'SNLI', 'QNLI', 'RTE'],
++        default=['SST-2', 'sst-5', 'mr', 'cr', 'mpqa', 'subj', 'trec', 'CoLA', 'MRPC', 'QQP', 'STS-B', 'MNLI', 'SNLI', 'QNLI', 'RTE', 'CLUE-MNLI', 'CONLL'],
+         help="Task names")
+     parser.add_argument("--seed", type=int, nargs="+", 
+-        default=[100, 13, 21, 42, 87],
++                        default=[1, 13, 42, 71, 100],
++                        # default=[100, 13, 21, 42, 87],
+         help="Random seeds")
+ 
+     parser.add_argument("--data_dir", type=str, default="data/original", help="Path to original data")
+@@ -104,9 +107,9 @@
+ 
+             # Shuffle the training set
+             print("| Task = %s" % (task))
+-            if task in ["MNLI", "MRPC", "QNLI", "QQP", "RTE", "SNLI", "SST-2", "STS-B", "WNLI", "CoLA"]:
++            if task in ['CLUE-MNLI', "MNLI", "MRPC", "QNLI", "QQP", "RTE", "SNLI", "SST-2", "STS-B", "WNLI", "CoLA"]:
+                 # GLUE style 
+-                train_header, train_lines = split_header(task, dataset["train"])
++                train_header, train_lines = split_header(task, dataset["train"], hasHeader=(task=='CLUE-MNLI')) #CLUE-MNLI  train has header
+                 np.random.shuffle(train_lines)
+             else:
+                 # Other datasets 
+@@ -119,7 +122,7 @@
+             os.makedirs(setting_dir, exist_ok=True)
+ 
+             # Write test splits
+-            if task in ["MNLI", "MRPC", "QNLI", "QQP", "RTE", "SNLI", "SST-2", "STS-B", "WNLI", "CoLA"]:
++            if task in ['CLUE-MNLI', "MNLI", "MRPC", "QNLI", "QQP", "RTE", "SNLI", "SST-2", "STS-B", "WNLI", "CoLA"]:
+                 # GLUE style
+                 # Use the original development set as the test set (the original test sets are not publicly available)
+                 for split, lines in dataset.items():
+@@ -143,7 +146,7 @@
+                 else:
+                     label_list[label].append(line)
+             
+-            if task in ["MNLI", "MRPC", "QNLI", "QQP", "RTE", "SNLI", "SST-2", "STS-B", "WNLI", "CoLA"]:
++            if task in ['CLUE-MNLI', "MNLI", "MRPC", "QNLI", "QQP", "RTE", "SNLI", "SST-2", "STS-B", "WNLI", "CoLA"]:
+                 with open(os.path.join(setting_dir, "train.tsv"), "w") as f:
+                     for line in train_header:
+                         f.write(line)
+@@ -153,12 +156,14 @@
+                 name = "dev.tsv"
+                 if task == 'MNLI':
+                     name = "dev_matched.tsv"
++
++                # dev the same as train
+                 with open(os.path.join(setting_dir, name), "w") as f:
+                     for line in train_header:
+                         f.write(line)
+                     for label in label_list:
+-                        dev_rate = 11 if '10x' in args.mode else 2
+-                        for line in label_list[label][k:k*dev_rate]:
++                        #dev_rate = 11 if '10x' in args.mode else 2
++                        for line in label_list[label][:k]:#[k:k*dev_rate]:
+                             f.write(line)
+             else:
+                 new_train = []
