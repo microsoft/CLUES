@@ -1,0 +1,186 @@
+mnli:
+  data_format: CLUE_CLASSIFICATION
+  dropout_p: 0.1
+  enable_san: false 
+  metric_meta:
+    - EmF1
+  task_type: SeqenceGeneration
+  loss: CeCriterion
+  kd_loss: MseCriterion
+  adv_loss: SymKlCriterion
+  n_class: 2
+  split_names:
+  - train
+  - matched_dev
+  - mismatched_dev
+  - matched_test
+  - mismatched_test  
+  - 10_0_train
+  - 10_1_train
+  - 10_2_train
+  - 10_3_train
+  - 10_4_train
+  - 20_0_train
+  - 20_1_train
+  - 20_2_train
+  - 20_3_train
+  - 20_4_train
+  - 30_0_train
+  - 30_1_train
+  - 30_2_train
+  - 30_3_train
+  - 30_4_train 
+  - fewshot_dev
+sst:
+  data_format: CLUE_CLASSIFICATION
+  dropout_p: 0.1
+  enable_san: false 
+  metric_meta:
+    - EmF1
+  n_class: 2
+  task_type: SeqenceGeneration
+  loss: CeCriterion
+  kd_loss: MseCriterion
+  adv_loss: SymKlCriterion
+  split_names:
+  - train
+  - dev
+  - test  
+  - 10_0_train
+  - 10_1_train
+  - 10_2_train
+  - 10_3_train
+  - 10_4_train
+  - 20_0_train
+  - 20_1_train
+  - 20_2_train
+  - 20_3_train
+  - 20_4_train
+  - 30_0_train
+  - 30_1_train
+  - 30_2_train
+  - 30_3_train
+  - 30_4_train   
+  - fewshot_dev
+squad-v2:
+  data_format: CLUE_SPAN
+  dropout_p: 0.1
+  enable_san: false 
+  metric_meta:
+    - EmF12
+  n_class: 2
+  task_type: SeqenceGeneration
+  loss: CeCriterion
+  kd_loss: MseCriterion
+  adv_loss: SymKlCriterion
+  split_names:
+  - train
+  - dev
+  - 10_0_train
+  - 10_1_train
+  - 10_2_train
+  - 10_3_train
+  - 10_4_train
+  - 20_0_train
+  - 20_1_train
+  - 20_2_train
+  - 20_3_train
+  - 20_4_train
+  - 30_0_train
+  - 30_1_train
+  - 30_2_train
+  - 30_3_train
+  - 30_4_train   
+  - fewshot_dev
+record:
+  data_format: CLUE_SPAN
+  dropout_p: 0.1
+  enable_san: false 
+  metric_meta:
+    - EmF1
+  task_type: SeqenceGeneration
+  loss: CeCriterion
+  kd_loss: MseCriterion
+  adv_loss: SymKlCriterion
+  n_class: 2
+  split_names:
+  - train
+  - dev
+  - 10_0_train
+  - 10_1_train
+  - 10_2_train
+  - 10_3_train
+  - 10_4_train
+  - 20_0_train
+  - 20_1_train
+  - 20_2_train
+  - 20_3_train
+  - 20_4_train
+  - 30_0_train
+  - 30_1_train
+  - 30_2_train
+  - 30_3_train
+  - 30_4_train   
+  - fewshot_dev
+ner:
+  data_format: CLUE_SEQ
+  dropout_p: 0.1
+  enable_san: false 
+  metric_meta:
+    - EmF1
+  task_type: SeqenceGeneration
+  loss: CeCriterion
+  kd_loss: MseCriterion
+  adv_loss: SymKlCriterion
+  n_class: 3
+  split_names:
+  - train
+  - dev
+  - test
+  - 10_0_train
+  - 10_1_train
+  - 10_2_train
+  - 10_3_train
+  - 10_4_train
+  - 20_0_train
+  - 20_1_train
+  - 20_2_train
+  - 20_3_train
+  - 20_4_train
+  - 30_0_train
+  - 30_1_train
+  - 30_2_train
+  - 30_3_train
+  - 30_4_train   
+  - fewshot_dev
+wikiann:
+  data_format: CLUE_SEQ
+  dropout_p: 0.1
+  enable_san: false 
+  metric_meta:
+    - EmF1
+  task_type: SeqenceGeneration
+  loss: CeCriterion
+  kd_loss: MseCriterion
+  adv_loss: SymKlCriterion
+  n_class: 3
+  split_names:
+  - train
+  - dev
+  - test
+  - 10_0_train
+  - 10_1_train
+  - 10_2_train
+  - 10_3_train
+  - 10_4_train
+  - 20_0_train
+  - 20_1_train
+  - 20_2_train
+  - 20_3_train
+  - 20_4_train
+  - 30_0_train
+  - 30_1_train
+  - 30_2_train
+  - 30_3_train
+  - 30_4_train   
+  - fewshot_dev
