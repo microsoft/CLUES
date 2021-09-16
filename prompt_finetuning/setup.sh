@@ -1,4 +1,4 @@
-# pull original LM-BFF code at a86087f to folder tmp
+# pull original LM-BFF code at commit a86087f
 git clone git@github.com:princeton-nlp/LM-BFF.git
 cd LM-BFF
 git checkout a86087f
