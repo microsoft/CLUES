@@ -37,7 +37,6 @@ We release source codes for two fine-tuning strategies on CLUES, one with classi
 ## How do I cite CLUES?
 
 ```
-
 @article{cluesteam2021,
   title={Few-Shot Learning Evaluation in Natural Language Understanding},
   author={Mukherjee, Subhabrata and Liu, Xiaodong and Zheng, Guoqing and Hosseini, Saghar and Cheng, Hao and Yang, Greg and Meek, Christopher and Awadallah, Ahmed Hassan and Gao, Jianfeng},
