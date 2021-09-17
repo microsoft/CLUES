@@ -42,14 +42,6 @@ We release source codes for two fine-tuning strategies on CLUES, one with classi
   author={Mukherjee, Subhabrata and Liu, Xiaodong and Zheng, Guoqing and Hosseini, Saghar and Cheng, Hao and Yang, Greg and Meek, Christopher and Awadallah, Ahmed Hassan and Gao, Jianfeng},
   year={2021}
 }
-
-@inproceedings{liu2020mtdnn,
-  title={The Microsoft Toolkit of Multi-Task Deep Neural Networks for Natural Language Understanding},
-  author={Liu, Xiaodong and Wang, Yu and Ji, Jianshu and Cheng, Hao and Zhu, Xueyun and Awa, Emmanuel and He, Pengcheng and Chen, Weizhu and Poon, Hoifung and Cao, Guihong and others},
-  booktitle={Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics: System Demonstrations},
-  pages={118--126},
-  year={2020}
-}
 ```
 
 ## Acknowledgments
