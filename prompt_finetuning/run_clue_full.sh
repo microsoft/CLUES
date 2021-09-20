@@ -40,7 +40,7 @@ case $TASK in
         ;;
     CLUE-SST-2)
         TEMPLATE=*cls**sent_0*_It_was*mask*.*sep+*
-        MAPPING="{'0':'terrible','1':'great'}"
+        MAPPING="{'negative':'terrible','positive':'great'}"
         ;;
     MRPC)
         TEMPLATE=*cls**sent_0**mask*,*+sentl_1**sep+*
