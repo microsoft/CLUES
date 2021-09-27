@@ -25,133 +25,45 @@ logger = create_logger(
     to_disk=True,
     log_file='mt_dnn_clues_gen_data_proc_{}.log'.format(MAX_SEQ_LEN))
 
-def load_json(path):
+def load_clues_jsonl(path, data_type, is_training=True):
+    examples = []
     with open(path, 'r', encoding='utf-8') as f:
-        return json.load(f)
-
-def flat_clue_cls(path, is_training=True):
-    """In this case, answers are in the question without providing answer index
-    """
-    input_data = load_json(path)
-    print('description: {}'.format(input_data['description']))
-    input_data = input_data['data']
-    examples = []
-    for entry in tqdm(input_data):
-        context = entry["context"]
-        question = entry["question"]
-        id = entry["id"]
-        answers = entry.get("answer", [])
-        is_impossible = entry.get("is_impossible", None)
-
-        if len(answers) > 0:
-            new_answers = []
-            for answer in answers:
-                new_answer = {"text": [answer]}
-                new_answers.append(new_answer)
-            answers = new_answer
-
-        example = {
-            'id': id,
-            'context': context,
-            'question': question,
-            'answer': answers,
-            'is_impossible': is_impossible
-        }
-        examples.append(example)
-    return examples
-
-def flat_clue_qa(path, is_training=True):
-    def qa_sample(uid, context, question, answers, is_impossible, answer_start=None, is_training=True):
-        if len(answers) > 0:
-            answer_text = [answer['text'] for answer in answers]
-        else:
-            answer_text = [DUMPY_STRING_FOR_EMPTY_ANS] if is_training else []
-        answers = {'text': answer_text}
-
-        example = {
-            'id': uid,
-            'context': context,
-            'question': question,
-            'answer': answers,
-            'is_impossible': is_impossible
-        }
-        return example
-        
-    input_data = load_json(path)
-    print('description: {}'.format(input_data['description']))
-    input_data = input_data['data']
-    examples = []
-    for entry in tqdm(input_data):
-        context = entry["context"]
-        if 'qas' in entry:
-            for qa_entry in entry["qas"]:
-                question = qa_entry["question"]
-                if isinstance(question, list):
-                    assert len(question) == 1
-                    question = question[0]
-                uid = qa_entry["id"]
-                # remove dumplicated answers
-                answers = list(set(qa_entry.get("answer", [])))
-                if type(context) is dict:
-                    entities = context["entities"]
-                    context_text = context["text"]
-                    assert type(answers) is list
-                    temp_answers = []
-                    ent_strs = []
-                    for ent in entities:
-                        ent_strs.append(context_text[ent["start"]: ent["end"]+1])
-                    for answer in answers:
-                        temp_answers.append({"text": answer})
-                    answers = temp_answers
-                is_impossible = qa_entry.get("is_impossible", None)
-                example = qa_sample(uid, context_text, question, answers, is_impossible, is_training=is_training)
-                examples.append(example)          
-        else:
-            question = entry["question"]
-            uid = entry["id"]
-            answers = entry.get("answer", [])
-            is_impossible = entry.get("is_impossible", None)
-            example = qa_sample(uid, context, question, answers, is_impossible, is_training=is_training)
-            examples.append(example)
-    return examples
-
-def flat_clue_ner(path, is_training=True):
-    """In this case, answers are in the question without providing answer index
-    """
-    input_data = load_json(path)
-    print('description: {}'.format(input_data['description']))
-    input_data = input_data['data']
-    examples = []
-    for entry in tqdm(input_data):
-        context = entry["context"]
-        qas = entry["qas"]
-        for sample in qas:
-            id = sample["id"]
-            question = sample["question"]
-            answers = sample.get("answer", [])
-            is_impossible = entry.get("is_impossible", None)
-            if len(answers) > 0:
+        for line in f:
+            if len(line) < 1: return examples
+            obj = json.loads(line)
+            is_impossible = obj.get("is_impossible", None)
+            answers = obj.get("answer", [])
+            context = obj.get('context', None)
+            question = obj.get('question', None)
+            if data_type == DataFormat.CLUE_CLASSIFICATION:
                 new_answers = []
                 for answer in answers:
-                    new_answer = {"text": answer, "answer_start": context.find(answer)}
+                    new_answer = {"text": [answer], "answer_start": [question.find(answer)]}
                     new_answers.append(new_answer)
-                answers = sorted(new_answers, key = lambda x : x['answer_start'])
-                answers = {'text': [", ".join([ans['text'] for ans in answers])]}
+                answers = new_answer
+            elif data_type == DataFormat.CLUE_SPAN:
+                if len(answers) > 0:
+                    answer_text = [answer['text'].strip() for answer in answers]
+                    answer_start = [answer['answer_start'] for answer in answers]
+                else:
+                    answer_text = []
+                    answer_start = []
+                answers = {'text': answer_text, 'answer_start': answer_start}
             else:
-                answers = {"text": [DUMPY_STRING_FOR_EMPTY_ANS]} if is_training else []
-            example = {
-                'id': id,
-                'context': context,
-                'question': question,
-                'answer': answers,
-                'is_impossible': is_impossible
-            }
-
-            examples.append(example)
-    return examples    
-
-
-
+                if len(answers) > 0:
+                    new_answers = []
+                    for answer in answers:
+                        new_answer = {"text": answer, "answer_start": context.find(answer)}
+                        new_answers.append(new_answer)
+                    answers = sorted(new_answers, key = lambda x : x['answer_start'])
+                    answers = {'text': [", ".join([ans['text'] for ans in answers])]}
+                else:
+                    answers = {"text": [DUMPY_STRING_FOR_EMPTY_ANS]} if is_training else []
+                
+            obj['answer'] = answers
+            obj['is_impossible'] = is_impossible
+            examples.append(obj)
+        return examples
 
 def prepare_train_feature(tokenizer, samples, output_path, data_type=DataFormat.CLUE_GEN, max_seq_length=384, doc_stride=128, tgt_max_seq_length=64, pad_on_right=True, pad_to_max_length=True, label_mapper=None):
     with open(output_path, 'w', encoding='utf-8') as writer:
@@ -360,12 +272,7 @@ def main(args):
             is_training = True
             if not "train" in split_name:
                 is_training = False
-            if task_def.data_type == DataFormat.CLUE_CLASSIFICATION:
-                rows = flat_clue_cls(file_path, is_training)
-            elif task_def.data_type == DataFormat.CLUE_SPAN:
-                rows = flat_clue_qa(file_path, is_training)
-            else:
-                rows = flat_clue_ner(file_path, is_training)
+            rows = load_clues_jsonl(file_path, task_def.data_type)
             dump_path = os.path.join(mt_dnn_root, "%s_%s.json" % (task, split_name))
             logger.info(dump_path)
             if is_training:

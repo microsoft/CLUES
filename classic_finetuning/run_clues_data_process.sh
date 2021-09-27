@@ -35,10 +35,10 @@ do
   do
     # cp CoNLL
     src="${data_path}/CoNLL2003/conll_train_${shot}_${round}.jsonl"
-    tgt="${CLUES_DATA_PATH}/conll_${shot}_${round}_train.json"
+    tgt="${CLUES_DATA_PATH}/ner_${shot}_${round}_train.json"
     cp ${src} ${tgt}
     src="${data_path}/CoNLL2003/conll_test.jsonl"
-    tgt="${CLUES_DATA_PATH}/conll_fewshot_test.json"
+    tgt="${CLUES_DATA_PATH}/ner_fewshot_dev.json"
     cp ${src} ${tgt}
 
     # cp MNLI
@@ -46,7 +46,7 @@ do
     tgt="${CLUES_DATA_PATH}/mnli_${shot}_${round}_train.json"
     cp ${src} ${tgt}
     src="${data_path}/MNLI/mnli_test.jsonl"
-    tgt="${CLUES_DATA_PATH}/mnli_fewshot_test.json"
+    tgt="${CLUES_DATA_PATH}/mnli_fewshot_dev.json"
     cp ${src} ${tgt}
 
     # cp SST-2
@@ -54,7 +54,7 @@ do
     tgt="${CLUES_DATA_PATH}/sst_${shot}_${round}_train.json"
     cp ${src} ${tgt}
     src="${data_path}/SST-2/sst_test.jsonl"
-    tgt="${CLUES_DATA_PATH}/sst_fewshot_test.json"
+    tgt="${CLUES_DATA_PATH}/sst_fewshot_dev.json"
     cp ${src} ${tgt}
     
     # cp ReCoRD
@@ -62,7 +62,7 @@ do
     tgt="${CLUES_DATA_PATH}/record_${shot}_${round}_train.json"
     cp ${src} ${tgt}
     src="${data_path}/ReCoRD/record_test.jsonl"
-    tgt="${CLUES_DATA_PATH}/record_fewshot_test.json"
+    tgt="${CLUES_DATA_PATH}/record_fewshot_dev.json"
     cp ${src} ${tgt}
 
     # cp SQuAD-v2
@@ -71,7 +71,7 @@ do
     cp ${src} ${tgt}
 
     src="${data_path}/SQuAD-v2/squad-v2_test.jsonl"
-    tgt="${CLUES_DATA_PATH}/squad-v2_fewshot_test.json"
+    tgt="${CLUES_DATA_PATH}/squad-v2_fewshot_dev.json"
     cp ${src} ${tgt}
 
     # cp WikiANN
@@ -80,7 +80,7 @@ do
     cp ${src} ${tgt}
 
     src="${data_path}/WikiANN_EN/wikiann_test.jsonl"
-    tgt="${CLUES_DATA_PATH}/wikiann_fewshot_test.json"
+    tgt="${CLUES_DATA_PATH}/wikiann_fewshot_dev.json"
     cp ${src} ${tgt}
   done
 done

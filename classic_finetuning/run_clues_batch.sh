@@ -19,7 +19,7 @@ export CLUES_DATA=${data_dir}
 declare -a PLMS=('bert' 'roberta' 'deberta' 't5e' 't5g')
 declare -a TASKS=('sst' 'mnli' 'squad-v2' 'record' 'ner' 'wikiann')
 declare -a SHOTS=('10' '20' '30')
-declare -a ROUNDS=('0' '1' '2' "3" "4")
+declare -a ROUNDS=('1' '2' '3' '4' '5')
 
 ## RUN fewshot experiments
 for plm in "${PLMS[@]}"
@@ -42,7 +42,6 @@ do
        done
      done
    done
-
 done
 
 
