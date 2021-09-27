@@ -10,27 +10,27 @@ mnli:
   adv_loss: SymKlCriterion
   n_class: 2
   split_names:
-  - train
-  - matched_dev
-  - mismatched_dev
-  - matched_test
-  - mismatched_test  
-  - 10_0_train
+  # - train
+  # - matched_dev
+  # - mismatched_dev
+  # - matched_test
+  # - mismatched_test  
   - 10_1_train
   - 10_2_train
   - 10_3_train
   - 10_4_train
-  - 20_0_train
+  - 10_5_train
   - 20_1_train
   - 20_2_train
   - 20_3_train
   - 20_4_train
+  - 20_5_train
   - 30_0_train
-  - 30_1_train
   - 30_2_train
   - 30_3_train
   - 30_4_train 
-  - fewshot_dev
+  - 30_5_train
+  - fewshot_test
 sst:
   data_format: CLUE_CLASSIFICATION
   dropout_p: 0.1
@@ -43,25 +43,25 @@ sst:
   kd_loss: MseCriterion
   adv_loss: SymKlCriterion
   split_names:
-  - train
-  - dev
-  - test  
-  - 10_0_train
+  # - train
+  # - dev
+  # - test
   - 10_1_train
   - 10_2_train
   - 10_3_train
   - 10_4_train
-  - 20_0_train
+  - 10_5_train
   - 20_1_train
   - 20_2_train
   - 20_3_train
   - 20_4_train
+  - 20_5_train
   - 30_0_train
-  - 30_1_train
   - 30_2_train
   - 30_3_train
-  - 30_4_train   
-  - fewshot_dev
+  - 30_4_train 
+  - 30_5_train 
+  - fewshot_test
 squad-v2:
   data_format: CLUE_SPAN
   dropout_p: 0.1
@@ -74,24 +74,24 @@ squad-v2:
   kd_loss: MseCriterion
   adv_loss: SymKlCriterion
   split_names:
-  - train
-  - dev
-  - 10_0_train
+  # - train
+  # - dev
   - 10_1_train
   - 10_2_train
   - 10_3_train
   - 10_4_train
-  - 20_0_train
+  - 10_5_train
   - 20_1_train
   - 20_2_train
   - 20_3_train
   - 20_4_train
+  - 20_5_train
   - 30_0_train
-  - 30_1_train
   - 30_2_train
   - 30_3_train
-  - 30_4_train   
-  - fewshot_dev
+  - 30_4_train 
+  - 30_5_train 
+  - fewshot_test
 record:
   data_format: CLUE_SPAN
   dropout_p: 0.1
@@ -104,24 +104,24 @@ record:
   adv_loss: SymKlCriterion
   n_class: 2
   split_names:
-  - train
-  - dev
-  - 10_0_train
+  # - train
+  # - dev
   - 10_1_train
   - 10_2_train
   - 10_3_train
   - 10_4_train
-  - 20_0_train
+  - 10_5_train
   - 20_1_train
   - 20_2_train
   - 20_3_train
   - 20_4_train
+  - 20_5_train
   - 30_0_train
-  - 30_1_train
   - 30_2_train
   - 30_3_train
-  - 30_4_train   
-  - fewshot_dev
+  - 30_4_train 
+  - 30_5_train 
+  - fewshot_test
 ner:
   data_format: CLUE_SEQ
   dropout_p: 0.1
@@ -134,25 +134,25 @@ ner:
   adv_loss: SymKlCriterion
   n_class: 3
   split_names:
-  - train
-  - dev
-  - test
-  - 10_0_train
+  # - train
+  # - dev
+  # - test
   - 10_1_train
   - 10_2_train
   - 10_3_train
   - 10_4_train
-  - 20_0_train
+  - 10_5_train
   - 20_1_train
   - 20_2_train
   - 20_3_train
   - 20_4_train
+  - 20_5_train
   - 30_0_train
-  - 30_1_train
   - 30_2_train
   - 30_3_train
-  - 30_4_train   
-  - fewshot_dev
+  - 30_4_train 
+  - 30_5_train  
+  - fewshot_test
 wikiann:
   data_format: CLUE_SEQ
   dropout_p: 0.1
