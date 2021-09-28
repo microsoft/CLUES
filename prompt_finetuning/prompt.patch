@@ -617,8 +617,8 @@ diff -ru LM-BFF/src/models.py prompt_finetuning/src/models.py
          super().__init__(config)
 diff -ru LM-BFF/src/processors.py prompt_finetuning/src/processors.py
 --- LM-BFF/src/processors.py	2021-09-13 17:43:32.529130946 -0700
-+++ prompt_finetuning/src/processors.py	2021-09-20 13:16:44.213839899 -0700
-@@ -109,6 +109,268 @@
++++ prompt_finetuning/src/processors.py	2021-09-27 18:09:35.694501018 -0700
+@@ -109,6 +109,266 @@
              examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
          return examples
  
@@ -877,17 +877,15 @@ diff -ru LM-BFF/src/processors.py prompt_finetuning/src/processors.py
 +            for line in f:
 +                record = json.loads(line)
 +                guid = '%s-%s' % (set_type, record['id'])
-+                text_parts = record['context'].split('<SEP>')
-+                assert len(text_parts) == 2, 'Wrong data record!'
-+                text_a = text_parts[0].strip()
-+                text_b = text_parts[1].strip()
++                text_a = record['context'][0]
++                text_b = record['context'][1]
 +                label = record['answer'][0]
 +                examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
 +        return examples
  
  class MnliMismatchedProcessor(MnliProcessor):
      """Processor for the MultiNLI Mismatched data set (GLUE version)."""
-@@ -246,6 +508,44 @@
+@@ -246,6 +506,44 @@
              examples.append(InputExample(guid=guid, text_a=text_a, text_b=None, label=label))
          return examples
  
@@ -932,7 +930,7 @@ diff -ru LM-BFF/src/processors.py prompt_finetuning/src/processors.py
  
  class StsbProcessor(DataProcessor):
      """Processor for the STS-B data set (GLUE version)."""
-@@ -537,11 +837,16 @@
+@@ -537,11 +835,16 @@
  # Add your task to the following mappings
  
  processors_mapping = {
@@ -949,7 +947,7 @@ diff -ru LM-BFF/src/processors.py prompt_finetuning/src/processors.py
      "sts-b": StsbProcessor(),
      "qqp": QqpProcessor(),
      "qnli": QnliProcessor(),
-@@ -557,10 +862,15 @@
+@@ -557,10 +860,15 @@
  }
  
  num_labels_mapping = {
@@ -965,7 +963,7 @@ diff -ru LM-BFF/src/processors.py prompt_finetuning/src/processors.py
      "sts-b": 1,
      "qqp": 2,
      "qnli": 2,
-@@ -576,11 +886,16 @@
+@@ -576,11 +884,16 @@
  }
  
  output_modes_mapping = {
@@ -982,7 +980,7 @@ diff -ru LM-BFF/src/processors.py prompt_finetuning/src/processors.py
      "sts-b": "regression",
      "qqp": "classification",
      "qnli": "classification",
-@@ -597,11 +912,16 @@
+@@ -597,11 +910,16 @@
  
  # Return a function that takes (task_name, preds, labels) as inputs
  compute_metrics_mapping = {

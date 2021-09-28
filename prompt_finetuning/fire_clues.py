@@ -13,12 +13,12 @@ for i, model in enumerate(models):
             for K in Ks:
                 if 'SST' in task:
                     data_dir = '../data/CLUES/SST-2'
-                    data_train = 'sst_train_%d_%d.json' % (K, clues_seed)
-                    data_test = 'sst_test.json'
+                    data_train = 'sst_train_%d_%d.jsonl' % (K, clues_seed)
+                    data_test = 'sst_test.jsonl'
                 else:
                     data_dir = '../data/CLUES/MNLI'
-                    data_train = 'mnli_train_%d_%d.json' % (K, clues_seed)
-                    data_test = 'mnli_test.json'
+                    data_train = 'mnli_train_%d_%d.jsonl' % (K, clues_seed)
+                    data_test = 'mnli_test.jsonl'
 
                 if K % 8 == 0:
                     max_step = str(20 * K // 8)
