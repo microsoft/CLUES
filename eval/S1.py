@@ -28,13 +28,13 @@ def eval_S1(pred, ans):
     assert len(pred) == len(ans), 'Size mismatch!'
 
     N = len(pred)
-    f1 = 0
+    s1 = 0
     for i in range(N):
-        f1 += _s1_entry(pred[i], ans[i])
+        s1 += _s1_entry(pred[i], ans[i])
 
-    f1 = f1 / N
+    s1 = s1 / N
 
-    return f1
+    return s1
 
 if __name__ == '__main__':
     # test
