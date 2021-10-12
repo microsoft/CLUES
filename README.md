@@ -54,7 +54,7 @@ The submission should not use external data or data from other splits during few
 
 | Shots (K)        | 10         | 20         | 30        | All   |
 |------------------|------------|------------|-----------|-------|
-| Human            | 79.8       | 83.0       | 83.7      | -     |
+| **Human**        | 79.8       | 83.0       | 83.7      | -     |
 | BERT-Base FT     | 46.2+-5.6  | 54.0+-2.8  | 53.6+-5.5 | 98.1  |
 | BERT-Base PT     | 63.9+-10.0 | 76.7+-6.6  | 79.4+-5.6 | 91.9  |
 | BERT-Large FT    | 46.3+-5.5  | 55.5+-3.4  | 55.4+-2.5 | 99.1  |
@@ -70,7 +70,7 @@ The submission should not use external data or data from other splits during few
 
 | Shots (K)        | 10         | 20         | 30         | All  |
 |------------------|------------|------------|------------|------|
-| Human            | 78.1       | 78.57      | 69.4       | -    |
+| **Human**        | 78.1       | 78.57      | 69.4       | -    |
 | BERT-Base FT     | 37.0+-5.2  | 35.2+-2.7  | 35.4+-3.2  | 81.6 |
 | BERT-Base PT     | 40.4+-1.8  | 42.1+-4.4  | 42.5+-3.2  | 81.0 |
 | BERT-Large FT    | 33.7+-0.4  | 28.2+-14.8 | 33.3+-1.4  | 80.9 |
@@ -86,7 +86,7 @@ The submission should not use external data or data from other splits during few
 
 | Shots (K)        | 10        | 20        | 30        | All  |
 |------------------|-----------|-----------|-----------|------|
-| Human            | 87.7      | 89.7      | 87.4      | -    |
+| **Human**        | 87.7      | 89.7      | 87.4      | -    |
 | BERT-Base FT     | 51.3+-0   | 51.3+-0   | 51.3+-0   | -    |
 | BERT-Large FT    | 51.3+-0   | 51.3+-0   | 51.3+-0   | 89.3 |
 | RoBERTa-Large FT | 50.8+-0.5 | 44.6+-5.1 | 44.7+-2.6 | 93.2 |
@@ -97,7 +97,7 @@ The submission should not use external data or data from other splits during few
 
 | Shots (K)        | 10        | 20        | 30        | All  |
 |------------------|-----------|-----------|-----------|------|
-| Human            | 81.4      | 83.5      | 82.6      | -    |
+| **Human**        | 81.4      | 83.5      | 82.6      | -    |
 | BERT-Base FT     | 62.8+-0   | 62.8+-0   | 62.8+-0   | 88.8 |
 | BERT-Large FT    | 62.8+-0   | 62.6+-0.4 | 62.5+-0.6 | 91.0 |
 | RoBERTa-Large FT | 58.5+-8.8 | 56.9+-3.4 | 48.4+-6.7 | 91.2 |
@@ -108,7 +108,7 @@ The submission should not use external data or data from other splits during few
 
 | Shots (K)        | 10        | 20         | 30        | All  |
 |------------------|-----------|------------|-----------|------|
-| Human            | 71.9      | 76.4       | 73.5      | -    |
+| **Human**        | 71.9      | 76.4       | 73.5      | -    |
 | BERT-Base FT     | 46.0+-2.4 | 34.9+-9.0  | 32.6+-5.8 | 76.3 |
 | BERT-Large FT    | 42.3+-5.6 | 35.8+-9.7  | 35.3+-6.4 | 81.8 |
 | RoBERTa-Large FT | 38.1+-7.2 | 40.1+-6.4  | 43.5+-4.4 | 89.4 |
@@ -119,7 +119,7 @@ The submission should not use external data or data from other splits during few
 
 | Shots (K)        | 10        | 20        | 30        | All  |
 |------------------|-----------|-----------|-----------|------|
-| Human            | 94.1      | 94.2      | 91.9      | -    |
+| **Human**        | 94.1      | 94.2      | 91.9      | -    |
 | BERT-Base FT     | 10.3+-1.8 | 11.7+-2.4 | 13.1+-3.3 | 54.4 |
 | BERT-Large FT    | 9.9+-5.2  | 11.8+-4.9 | 14.9+-3.4 | 66.0 |
 | RoBERTa-Large FT | 12.0+-1.9 | 9.9+-6.2  | 16.0+-2.8 | 80.3 |
