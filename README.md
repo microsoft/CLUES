@@ -34,6 +34,16 @@ We release source codes for two fine-tuning strategies on CLUES, one with classi
 
    All prompt-based funetuning baselines run commands are in `experiments.sh`, simple run by `sh experiments.sh`
 
+### Leaderboard
+
+Here we maintain a leaderboard, allowing researchers to submit their results as entries.
+
+#### Submission Instruction
+
+Each submission must be submitted as a pull request modifying the markdown file underlying the leaderboard and must attach an accompanying public paper and public source code for reproducing their results on our dataset. A submission can be toward any subset of tasks in our benchmark, or toward the aggregate leaderboard. For any task targeted by the submission, we require evaluation on all 5 splits of the corresponding dataset and a report of their mean and standard deviation. 
+The submission should not use external data or data from other splits during few-shot finetuning, either as extra training set or as validation set for hyperparameter tuning.
+
+
 ## How do I cite CLUES?
 
 ```
