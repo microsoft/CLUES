@@ -34,7 +34,7 @@ We release source codes for two fine-tuning strategies on CLUES, one with classi
 
    All prompt-based funetuning baselines run commands are in `experiments.sh`, simple run by `sh experiments.sh`
 
-# Leaderboard
+## Leaderboard
 
 Here we maintain a leaderboard, allowing researchers to submit their results as entries.
 
@@ -44,13 +44,15 @@ Abbreviations:
 - ICL = in-context learning, in the style of GPT-3
 - μ+-σ = mean μ and standard deviation σ across our 5 splits
 
-## Submission Instruction
+### Submission Instruction
 
 Each submission must be submitted as a pull request modifying the markdown file underlying the leaderboard and must attach an accompanying public paper and public source code for reproducing their results on our dataset. A submission can be toward any subset of tasks in our benchmark, or toward the aggregate leaderboard. For any task targeted by the submission, we require evaluation on 1) 10, 20, *and* 30 shots, and 2) all 5 splits of the corresponding dataset and a report of their mean and standard deviation.
 Each leaderboard will be sorted by default by the 10-shot mean accuracy.
 The submission should not use external data or data from other splits during few-shot finetuning, either as extra training set or as validation set for hyperparameter tuning.
+In the table entry, the submission should include a method name and a citation, hyperlinking to their publicly released source code reproducing the results.
+See the last entry of the SST-2 table for an example.
 
-## SST-2
+### SST-2
 
 | Shots (K)        | 10         | 20         | 30        | All   |
 |------------------|------------|------------|-----------|-------|
@@ -65,12 +67,13 @@ The submission should not use external data or data from other splits during few
 | T5-Large FT      | 51.2+-1.8  | 53.4+-3.2  | 52.3+-2.9 | 97.6  |
 | DeBERTa-Large FT | 43.0+-11.9 | 40.8+-22.6 | 47.7+-9.0 | 100.0 |
 | RoBERTa-Large FT | 38.4+-21.7 | 52.3+-5.6  | 53.2+-5.6 | 98.6  |
+| [Example (lastname et al.)](link2code) | 0+-0| 0+-0 | 0+-0 | -      |
 
-## MNLI
+### MNLI
 
 | Shots (K)        | 10         | 20         | 30         | All  |
 |------------------|------------|------------|------------|------|
-| **Human**        | 78.1       | 78.57      | 69.4       | -    |
+| **Human**        | 78.1       | 78.6       | 69.4       | -    |
 | RoBERTa-Large PT | 57.7+-3.6  | 58.6+-2.9  | 61.6+-3.5  | 87.1 |
 | DeBERTa-Large PT | 44.5+-8.2  | 60.7+-5.3  | 62.9+-3.1  | 88.1 |
 | BERT-Large PT    | 41.7+-1.0  | 43.7+-2.1  | 45.3+-2.0  | 81.9 |
@@ -82,7 +85,7 @@ The submission should not use external data or data from other splits during few
 | GPT-3 (175B) ICL | 33.5+-0.7  | 33.1+-0.3  | 33.2+-0.2  | -    |
 | DeBERTa-Large FT | 27.4+-14.1 | 33.6+-2.5  | 26.7+-11.0 | 87.6 |
 
-## CoNLL03
+### CoNLL03
 
 | Shots (K)        | 10        | 20        | 30        | All  |
 |------------------|-----------|-----------|-----------|------|
@@ -93,7 +96,7 @@ The submission should not use external data or data from other splits during few
 | DeBERTa-Large FT | 50.1+-1.2 | 47.8+-2.5 | 48.2+-2.9 | 93.6 |
 | T5-Large FT      | 46.3+-6.9 | 50.0+-0.7 | 51.2+-0.1 | 92.2 |
 
-## WikiANN
+### WikiANN
 
 | Shots (K)        | 10        | 20        | 30        | All  |
 |------------------|-----------|-----------|-----------|------|
@@ -104,7 +107,7 @@ The submission should not use external data or data from other splits during few
 | DeBERTa-Large FT | 58.5+-3.3 | 57.9+-5.8 | 58.3+-6.2 | 91.1 |
 | RoBERTa-Large FT | 58.5+-8.8 | 56.9+-3.4 | 48.4+-6.7 | 91.2 |
 
-## SQuAD v2
+### SQuAD v2
 
 | Shots (K)        | 10        | 20         | 30        | All  |
 |------------------|-----------|------------|-----------|------|
@@ -115,7 +118,7 @@ The submission should not use external data or data from other splits during few
 | DeBERTa-Large FT | 41.4+-7.3 | 44.4+-4.5  | 38.7+-7.4 | 90.0 |
 | RoBERTa-Large FT | 38.1+-7.2 | 40.1+-6.4  | 43.5+-4.4 | 89.4 |
 
-## ReCoRD
+### ReCoRD
 
 | Shots (K)        | 10        | 20        | 30        | All  |
 |------------------|-----------|-----------|-----------|------|
