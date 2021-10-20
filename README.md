@@ -38,12 +38,6 @@ We release source codes for two fine-tuning strategies on CLUES, one with classi
 
 Here we maintain a leaderboard, allowing researchers to submit their results as entries.
 
-Abbreviations:
-- FT = (classic) finetuning
-- PT = prefix tuning
-- ICL = in-context learning, in the style of GPT-3
-- μ+-σ = mean μ and standard deviation σ across our 5 splits
-
 ### Submission Instructions
 
 - Each submission must be submitted as a pull request modifying the markdown file underlying the leaderboard.
@@ -55,6 +49,13 @@ Abbreviations:
 - In the table entry, the submission should include a method name and a citation, hyperlinking to their publicly released source code reproducing the results. See the last entry of the table below for an example.
 
 ### Benchmarking CLUES for Aggregate 30-shot Evaluation
+
+Abbreviations:
+- FT = (classic) finetuning
+- PT = prefix tuning
+- ICL = in-context learning, in the style of GPT-3
+- μ+-σ = mean μ and standard deviation σ across our 5 splits
+
 
 | Shots (K=30)     | SST-2       | MNLI        | CoNLL03     | WikiANN     | SQuAD-v2    | ReCoRD      | Average      |
 |------------------|-------------|-------------|-------------|-------------|-------------|-------------|--------------|
