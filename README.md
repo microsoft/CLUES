@@ -52,7 +52,7 @@ Here we maintain a leaderboard, allowing researchers to submit their results as 
 
 Abbreviations:
 - FT = (classic) finetuning
-- PT = prefix tuning
+- PT = prompt based tuning
 - ICL = in-context learning, in the style of GPT-3
 - μ+-σ = mean μ and standard deviation σ across our 5 splits
 
