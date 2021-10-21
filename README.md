@@ -107,6 +107,8 @@ Abbreviations:
 | BERT-Large FT    | 33.7+-0.4  | 28.2+-14.8 | 33.3+-1.4  | 80.9 |
 | GPT-3 (175B) ICL | 33.5+-0.7  | 33.1+-0.3  | 33.2+-0.2  | -    |
 | DeBERTa-Large FT | 27.4+-14.1 | 33.6+-2.5  | 26.7+-11.0 | 87.6 |
+| [LiST (wang et al.)](https://github.com/microsoft/LiST) | 60.5+-8.3| 67.2+-4.5 | 67.9+-3.0 | -      |
+
 
 ### CoNLL03
 
