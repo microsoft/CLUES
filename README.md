@@ -70,7 +70,7 @@ Abbreviations:
 | BERT-Large-336M-PT    | 82.7 +- 4.1 | 45.3 +- 2.0 |             |             |             |             |              |
 | GPT3-175B-ICL   | 91.0 +- 1.6 | 33.2 +- 0.2 |             |             |             |             |              |
 | BERT-Base-110M-PT     | 79.4 +- 5.6 | 42.5 +- 3.2 |             |             |             |             |              |
-| [LiST (wang et al.)] (https://github.com/microsoft/LiST)  | 91.3  +- 0.7 | 67.9 +- 3.0 |             |             |             |             |             
+| [LiST (wang et al.)](https://github.com/microsoft/LiST)  | 91.3  +- 0.7 | 67.9 +- 3.0 |             |             |             |             |             
 | [Example (lastname et al.)](link2code) | 0+-0 | 0+-0 | 0+-0  | 0+-0  | 0+-0  | 0+-0  | 0+-0 | 
 
 ## Individual Task Performance over Multiple Shots
