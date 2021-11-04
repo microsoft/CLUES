@@ -6,7 +6,7 @@ This repo contains the data and source code for baseline models in the NeurIPS 2
 
 ## Overview
 
-The benchmark data is located in the ```data'' directory. We also release source codes for two fine-tuning strategies on CLUES, one with classic fine-tuning and the other with prompt-based fine-tuning.
+The benchmark data is located in the ```data``` directory. We also release source codes for two fine-tuning strategies on CLUES, one with classic fine-tuning and the other with prompt-based fine-tuning.
 
 ## Classic finetuning
 
@@ -48,8 +48,7 @@ Here we maintain a leaderboard, allowing researchers to submit their results as 
 - The submission should not use data from the 4 other splits during few-shot finetuning of any 1 split, either as extra training set or as validation set for hyperparameter tuning.
 - However, we allow external data, labeled or unlabeled, to be used for such purposes.
 Each submission using external data must mark the corresponding columns "external labeled" and/or "external unlabeled".
-Note, in this context, "external data" refers to data used *after pretraining* (e.g., for task-specific tuning); in particular, methods using existing pretrained models only, without extra data, should not mark either column. For obvious reasons, models cannot be trained on the original labeled datasets from where we sampled the CLUES data.
-<!-- However, semisupervised methods using extra unlabeled data are allowed. -->
+Note, in this context, "external data" refers to data used *after pretraining* (e.g., for task-specific tuning); in particular, methods using existing pretrained models only, without extra data, should not mark either column. For obvious reasons, models cannot be trained on the original labeled datasets from where we sampled the few-shot CLUES data.
 - In the table entry, the submission should include a method name and a citation, hyperlinking to their publicly released source code reproducing the results. See the last entry of the table below for an example.
 
 
