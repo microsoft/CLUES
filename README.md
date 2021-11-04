@@ -2,11 +2,11 @@
 
 # CLUES: Few-Shot Learning Evaluation in Natural Language Understanding
 
-This repo contains the source code for baseline models in [CLUES](https://openreview.net/pdf?id=VhIIQBm00VI) under [MIT License](LICENSE).
+This repo contains the data and source code for baseline models in the NeurIPS 2021 benchmark paper for [Constrained Language Understanding Evaluation Standard (CLUES)](https://openreview.net/pdf?id=VhIIQBm00VI) under [MIT License](LICENSE).
 
 ## Overview
 
-We release source codes for two fine-tuning strategies on CLUES, one with classic fine-tuning and the other with prompt-based fine-tuning.
+The benchmark data is located in the ```data'' directory. We also release source codes for two fine-tuning strategies on CLUES, one with classic fine-tuning and the other with prompt-based fine-tuning.
 
 ## Classic finetuning
 
@@ -46,9 +46,9 @@ Here we maintain a leaderboard, allowing researchers to submit their results as 
 - For any task targeted by the submission, we require evaluation on (1) 10, 20, *and* 30 shots, and (2) all 5 splits of the corresponding dataset and a report of their mean and standard deviation.
 - Each leaderboard will be sorted by the 30-shot mean S1 score (where S1 score is a variant of F1 score defined in our paper).
 - The submission should not use data from the 4 other splits during few-shot finetuning of any 1 split, either as extra training set or as validation set for hyperparameter tuning.
-However, we allow external data, labeled or unlabeled, to be used for such purposes.
+- However, we allow external data, labeled or unlabeled, to be used for such purposes.
 Each submission using external data must mark the corresponding columns "external labeled" and/or "external unlabeled".
-Note, in this context, "external data" means data used *after pretraining*; in particular, methods using existing pretrained models only, without extra data, should not mark either column.
+Note, in this context, "external data" refers to data used *after pretraining* (e.g., for task-specific tuning); in particular, methods using existing pretrained models only, without extra data, should not mark either column. For obvious reasons, models cannot be trained on the original labeled datasets from where we sampled the CLUES data.
 <!-- However, semisupervised methods using extra unlabeled data are allowed. -->
 - In the table entry, the submission should include a method name and a citation, hyperlinking to their publicly released source code reproducing the results. See the last entry of the table below for an example.
 
@@ -74,7 +74,7 @@ Note, in this context, "external data" means data used *after pretraining*; in p
 | BERT-Large-336M-PT                                        | N           | N             |           | 82.7±4.1  | 45.3±2.0 |          |          |          |          |
 | GPT3-175B-ICL                                             | N           | N             |           | 91.0±1.6  | 33.2±0.2 |          |          |          |          |
 | BERT-Base-110M-PT                                         | N           | N             |           | 79.4±5.6  | 42.5±3.2 |          |          |          |          |
-| [LiST (Wang et   al.)](https://github.com/microsoft/LiST) | N           | N             |           | 91.3 ±0.7 | 67.9±3.0 |          |          |          |          |
+| [LiST (Wang et   al.)](https://github.com/microsoft/LiST) | N           | Y             |           | 91.3 ±0.7 | 67.9±3.0 |          |          |          |          |
 | [Example (lastname et al.)](link2code)                    | Y/N         | Y/N           | 0±0       | 0±0       | 0±0      | 0±0      | 0±0      | 0±0      | 0±0      |
 ### Individual Task Performance over Multiple Shots
 
@@ -98,7 +98,7 @@ Note, in this context, "external data" means data used *after pretraining*; in p
 
 | Shots (K)                                               | external labeled | external unlabeled | 10        | 20        | 30 ▼      | All  |
 |---------------------------------------------------------|------------------|--------------------|-----------|-----------|-----------|------|
-| **Human**                                               | N                | N                  | 78.1      | 78.6      | 69.4      | -    |
+| **Human**                                               | N                | Y                  | 78.1      | 78.6      | 69.4      | -    |
 | [LiST (wang et al.)](https://github.com/microsoft/LiST) | N                | N                  | 60.5±8.3  | 67.2±4.5  | 67.9±3.0  | -    |
 | DeBERTa-Large PT                                        | N                | N                  | 44.5±8.2  | 60.7±5.3  | 62.9±3.1  | 88.1 |
 | RoBERTa-Large PT                                        | N                | N                  | 57.7±3.6  | 58.6±2.9  | 61.6±3.5  | 87.1 |
