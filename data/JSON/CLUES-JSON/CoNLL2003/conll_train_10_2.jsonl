@@ -1,30 +1,30 @@
-{"answer": ["Leonard Santorelli"], "question": "List all the people names in the context", "id": "8061", "context": "Leonard Santorelli"}
-{"answer": [""], "question": "List all the organizations in the context", "id": "8061_", "context": "Leonard Santorelli"}
-{"answer": [""], "question": "List all the locations in the context", "id": "8061_", "context": "Leonard Santorelli"}
-{"answer": ["Liverpool", "Chelsea", "F.A.I."], "question": "List all the organizations in the context", "id": "2917", "context": "The F.A.I. statement said that Liverpool striker Mark Kennedy and Chelsea defender Terry Phelan were both receiving treatment for injuries and would not be travelling to Liechenstein for the game ."}
-{"answer": ["Mark Kennedy", "Terry Phelan"], "question": "List all the people names in the context", "id": "2918", "context": "The F.A.I. statement said that Liverpool striker Mark Kennedy and Chelsea defender Terry Phelan were both receiving treatment for injuries and would not be travelling to Liechenstein for the game ."}
-{"answer": ["Liechenstein"], "question": "List all the locations in the context", "id": "2919", "context": "The F.A.I. statement said that Liverpool striker Mark Kennedy and Chelsea defender Terry Phelan were both receiving treatment for injuries and would not be travelling to Liechenstein for the game ."}
-{"answer": ["Havel", "Fernando Henrique Cardoso"], "question": "List all the people names in the context", "id": "9208", "context": "Havel is due to meet with his Brazilian counterpart Fernando Henrique Cardoso in the capital Brasilia and will visit the cities of Manaus , Sao Paulo and Rio de Janeiro ."}
-{"answer": ["Sao Paulo", "Rio de Janeiro", "Brasilia"], "question": "List all the locations in the context", "id": "9209", "context": "Havel is due to meet with his Brazilian counterpart Fernando Henrique Cardoso in the capital Brasilia and will visit the cities of Manaus , Sao Paulo and Rio de Janeiro ."}
-{"answer": [""], "question": "List all the organizations in the context", "id": "9209_", "context": "Havel is due to meet with his Brazilian counterpart Fernando Henrique Cardoso in the capital Brasilia and will visit the cities of Manaus , Sao Paulo and Rio de Janeiro ."}
-{"answer": ["Erik Camerlengo"], "question": "List all the people names in the context", "id": "4709", "context": "6. Erik Camerlengo ( Italy ) Yamaha"}
-{"answer": ["Italy"], "question": "List all the locations in the context", "id": "4710", "context": "6. Erik Camerlengo ( Italy ) Yamaha"}
-{"answer": ["Yamaha"], "question": "List all the organizations in the context", "id": "4711", "context": "6. Erik Camerlengo ( Italy ) Yamaha"}
-{"answer": ["CINCINNATI"], "question": "List all the organizations in the context", "id": "888", "context": "CINCINNATI AT ATLANTA"}
-{"answer": ["ATLANTA"], "question": "List all the locations in the context", "id": "889", "context": "CINCINNATI AT ATLANTA"}
-{"answer": [""], "question": "List all the people names in the context", "id": "889_", "context": "CINCINNATI AT ATLANTA"}
-{"answer": ["BALTIMORE"], "question": "List all the organizations in the context", "id": "12686", "context": "BALTIMORE AT SEATTLE"}
-{"answer": ["SEATTLE"], "question": "List all the locations in the context", "id": "12687", "context": "BALTIMORE AT SEATTLE"}
-{"answer": [""], "question": "List all the people names in the context", "id": "12687_", "context": "BALTIMORE AT SEATTLE"}
-{"answer": ["Israel"], "question": "List all the locations in the context", "id": "11782", "context": "\" On Friday , all Moslems , including Palestinians in Israel ..."}
-{"answer": [""], "question": "List all the people names in the context", "id": "11782_", "context": "\" On Friday , all Moslems , including Palestinians in Israel ..."}
-{"answer": [""], "question": "List all the organizations in the context", "id": "11782_", "context": "\" On Friday , all Moslems , including Palestinians in Israel ..."}
-{"answer": ["Stephanie"], "question": "List all the people names in the context", "id": "11936", "context": "Stephanie of Monaco 's husband snapped cavorting ."}
-{"answer": ["Monaco"], "question": "List all the locations in the context", "id": "11937", "context": "Stephanie of Monaco 's husband snapped cavorting ."}
-{"answer": [""], "question": "List all the organizations in the context", "id": "11937_", "context": "Stephanie of Monaco 's husband snapped cavorting ."}
-{"answer": ["Rudolf Gajdos"], "question": "List all the people names in the context", "id": "9100", "context": "But they have difficulty remembering what happened there , perhaps because of drugs , and are unsure whether they were filmed for pornography , Rudolf Gajdos , head of the Slovak office of Interpol , told Reuters ."}
-{"answer": ["Reuters", "Interpol"], "question": "List all the organizations in the context", "id": "9101", "context": "But they have difficulty remembering what happened there , perhaps because of drugs , and are unsure whether they were filmed for pornography , Rudolf Gajdos , head of the Slovak office of Interpol , told Reuters ."}
-{"answer": [""], "question": "List all the locations in the context", "id": "9101_", "context": "But they have difficulty remembering what happened there , perhaps because of drugs , and are unsure whether they were filmed for pornography , Rudolf Gajdos , head of the Slovak office of Interpol , told Reuters ."}
-{"answer": ["S&P", "\"MOODY S\""], "question": "List all the organizations in the context", "id": "7888", "context": "MOODY 'S : A1 S&P : AA- FITCH : AA-"}
-{"answer": [""], "question": "List all the people names in the context", "id": "7888_", "context": "MOODY 'S : A1 S&P : AA- FITCH : AA-"}
-{"answer": [""], "question": "List all the locations in the context", "id": "7888_", "context": "MOODY 'S : A1 S&P : AA- FITCH : AA-"}
+{"answer": ["Leonard Santorelli"], "question": "List all the people names in the context", "id": "8061_1", "context": "Leonard Santorelli"}
+{"answer": [""], "question": "List all the organizations in the context", "id": "8061_2", "context": "Leonard Santorelli"}
+{"answer": [""], "question": "List all the locations in the context", "id": "8061_3", "context": "Leonard Santorelli"}
+{"answer": ["Mark Kennedy", "Terry Phelan"], "question": "List all the people names in the context", "id": "2917_1", "context": "The F.A.I. statement said that Liverpool striker Mark Kennedy and Chelsea defender Terry Phelan were both receiving treatment for injuries and would not be travelling to Liechenstein for the game ."}
+{"answer": ["Liverpool", "Chelsea", "F.A.I."], "question": "List all the organizations in the context", "id": "2917_2", "context": "The F.A.I. statement said that Liverpool striker Mark Kennedy and Chelsea defender Terry Phelan were both receiving treatment for injuries and would not be travelling to Liechenstein for the game ."}
+{"answer": ["Liechenstein"], "question": "List all the locations in the context", "id": "2917_3", "context": "The F.A.I. statement said that Liverpool striker Mark Kennedy and Chelsea defender Terry Phelan were both receiving treatment for injuries and would not be travelling to Liechenstein for the game ."}
+{"answer": ["Havel", "Fernando Henrique Cardoso"], "question": "List all the people names in the context", "id": "9208_1", "context": "Havel is due to meet with his Brazilian counterpart Fernando Henrique Cardoso in the capital Brasilia and will visit the cities of Manaus , Sao Paulo and Rio de Janeiro ."}
+{"answer": [""], "question": "List all the organizations in the context", "id": "9208_2", "context": "Havel is due to meet with his Brazilian counterpart Fernando Henrique Cardoso in the capital Brasilia and will visit the cities of Manaus , Sao Paulo and Rio de Janeiro ."}
+{"answer": ["Sao Paulo", "Rio de Janeiro", "Brasilia"], "question": "List all the locations in the context", "id": "9208_3", "context": "Havel is due to meet with his Brazilian counterpart Fernando Henrique Cardoso in the capital Brasilia and will visit the cities of Manaus , Sao Paulo and Rio de Janeiro ."}
+{"answer": ["Erik Camerlengo"], "question": "List all the people names in the context", "id": "4709_1", "context": "6. Erik Camerlengo ( Italy ) Yamaha"}
+{"answer": ["Yamaha"], "question": "List all the organizations in the context", "id": "4709_2", "context": "6. Erik Camerlengo ( Italy ) Yamaha"}
+{"answer": ["Italy"], "question": "List all the locations in the context", "id": "4709_3", "context": "6. Erik Camerlengo ( Italy ) Yamaha"}
+{"answer": [""], "question": "List all the people names in the context", "id": "888_1", "context": "CINCINNATI AT ATLANTA"}
+{"answer": ["CINCINNATI"], "question": "List all the organizations in the context", "id": "888_2", "context": "CINCINNATI AT ATLANTA"}
+{"answer": ["ATLANTA"], "question": "List all the locations in the context", "id": "888_3", "context": "CINCINNATI AT ATLANTA"}
+{"answer": [""], "question": "List all the people names in the context", "id": "12686_1", "context": "BALTIMORE AT SEATTLE"}
+{"answer": ["BALTIMORE"], "question": "List all the organizations in the context", "id": "12686_2", "context": "BALTIMORE AT SEATTLE"}
+{"answer": ["SEATTLE"], "question": "List all the locations in the context", "id": "12686_3", "context": "BALTIMORE AT SEATTLE"}
+{"answer": [""], "question": "List all the people names in the context", "id": "11782_1", "context": "\" On Friday , all Moslems , including Palestinians in Israel ..."}
+{"answer": [""], "question": "List all the organizations in the context", "id": "11782_2", "context": "\" On Friday , all Moslems , including Palestinians in Israel ..."}
+{"answer": ["Israel"], "question": "List all the locations in the context", "id": "11782_3", "context": "\" On Friday , all Moslems , including Palestinians in Israel ..."}
+{"answer": ["Stephanie"], "question": "List all the people names in the context", "id": "11936_1", "context": "Stephanie of Monaco 's husband snapped cavorting ."}
+{"answer": [""], "question": "List all the organizations in the context", "id": "11936_2", "context": "Stephanie of Monaco 's husband snapped cavorting ."}
+{"answer": ["Monaco"], "question": "List all the locations in the context", "id": "11936_3", "context": "Stephanie of Monaco 's husband snapped cavorting ."}
+{"answer": ["Rudolf Gajdos"], "question": "List all the people names in the context", "id": "9100_1", "context": "But they have difficulty remembering what happened there , perhaps because of drugs , and are unsure whether they were filmed for pornography , Rudolf Gajdos , head of the Slovak office of Interpol , told Reuters ."}
+{"answer": ["Reuters", "Interpol"], "question": "List all the organizations in the context", "id": "9100_2", "context": "But they have difficulty remembering what happened there , perhaps because of drugs , and are unsure whether they were filmed for pornography , Rudolf Gajdos , head of the Slovak office of Interpol , told Reuters ."}
+{"answer": [""], "question": "List all the locations in the context", "id": "9100_3", "context": "But they have difficulty remembering what happened there , perhaps because of drugs , and are unsure whether they were filmed for pornography , Rudolf Gajdos , head of the Slovak office of Interpol , told Reuters ."}
+{"answer": [""], "question": "List all the people names in the context", "id": "7888_1", "context": "MOODY 'S : A1 S&P : AA- FITCH : AA-"}
+{"answer": ["S&P", "\"MOODY S\""], "question": "List all the organizations in the context", "id": "7888_2", "context": "MOODY 'S : A1 S&P : AA- FITCH : AA-"}
+{"answer": [""], "question": "List all the locations in the context", "id": "7888_3", "context": "MOODY 'S : A1 S&P : AA- FITCH : AA-"}

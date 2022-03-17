@@ -1,90 +1,90 @@
-{"answer": ["CINCINNATI"], "question": "List all the organizations in the context", "id": "888", "context": "CINCINNATI AT ATLANTA"}
-{"answer": ["ATLANTA"], "question": "List all the locations in the context", "id": "889", "context": "CINCINNATI AT ATLANTA"}
-{"answer": [""], "question": "List all the people names in the context", "id": "889_", "context": "CINCINNATI AT ATLANTA"}
-{"answer": ["Addis Ababa", "Egypt"], "question": "List all the locations in the context", "id": "1427", "context": "Egypt says the Sudanese government helped the Moslem militants who tried to kill Mubarak in Addis Ababa last year ."}
-{"answer": ["Mubarak"], "question": "List all the people names in the context", "id": "1428", "context": "Egypt says the Sudanese government helped the Moslem militants who tried to kill Mubarak in Addis Ababa last year ."}
-{"answer": [""], "question": "List all the organizations in the context", "id": "1428_", "context": "Egypt says the Sudanese government helped the Moslem militants who tried to kill Mubarak in Addis Ababa last year ."}
-{"answer": ["DNEVNI AVAZ"], "question": "List all the organizations in the context", "id": "1334", "context": "DNEVNI AVAZ"}
-{"answer": [""], "question": "List all the people names in the context", "id": "1334_", "context": "DNEVNI AVAZ"}
-{"answer": [""], "question": "List all the locations in the context", "id": "1334_", "context": "DNEVNI AVAZ"}
-{"answer": ["Ukraine"], "question": "List all the locations in the context", "id": "6745", "context": "Results of Ukraine premier division"}
-{"answer": [""], "question": "List all the people names in the context", "id": "6745_", "context": "Results of Ukraine premier division"}
-{"answer": [""], "question": "List all the organizations in the context", "id": "6745_", "context": "Results of Ukraine premier division"}
-{"answer": ["CHESAPEAKE", "Va"], "question": "List all the locations in the context", "id": "3067", "context": "CHESAPEAKE , Va ."}
-{"answer": [""], "question": "List all the people names in the context", "id": "3067_", "context": "CHESAPEAKE , Va ."}
-{"answer": [""], "question": "List all the organizations in the context", "id": "3067_", "context": "CHESAPEAKE , Va ."}
-{"answer": ["Zaire"], "question": "List all the locations in the context", "id": "12906", "context": "Zaire installs first election delegates ."}
-{"answer": [""], "question": "List all the people names in the context", "id": "12906_", "context": "Zaire installs first election delegates ."}
-{"answer": [""], "question": "List all the organizations in the context", "id": "12906_", "context": "Zaire installs first election delegates ."}
-{"answer": ["EL MUNDO"], "question": "List all the organizations in the context", "id": "13868", "context": "EL MUNDO"}
-{"answer": [""], "question": "List all the people names in the context", "id": "13868_", "context": "EL MUNDO"}
-{"answer": [""], "question": "List all the locations in the context", "id": "13868_", "context": "EL MUNDO"}
-{"answer": ["Israel"], "question": "List all the locations in the context", "id": "11782", "context": "\" On Friday , all Moslems , including Palestinians in Israel ..."}
-{"answer": [""], "question": "List all the people names in the context", "id": "11782_", "context": "\" On Friday , all Moslems , including Palestinians in Israel ..."}
-{"answer": [""], "question": "List all the organizations in the context", "id": "11782_", "context": "\" On Friday , all Moslems , including Palestinians in Israel ..."}
-{"answer": ["Groningen"], "question": "List all the organizations in the context", "id": "5915", "context": "Groningen 1 ( Gorre 7th ) ."}
-{"answer": ["Gorre"], "question": "List all the people names in the context", "id": "5916", "context": "Groningen 1 ( Gorre 7th ) ."}
-{"answer": [""], "question": "List all the locations in the context", "id": "5916_", "context": "Groningen 1 ( Gorre 7th ) ."}
-{"answer": ["Clinton"], "question": "List all the people names in the context", "id": "4424", "context": "According to a senior campaign official , Clinton \" will be making a lot of news in the coming week -- something different each day . \""}
-{"answer": [""], "question": "List all the organizations in the context", "id": "4424_", "context": "According to a senior campaign official , Clinton \" will be making a lot of news in the coming week -- something different each day . \""}
-{"answer": [""], "question": "List all the locations in the context", "id": "4424_", "context": "According to a senior campaign official , Clinton \" will be making a lot of news in the coming week -- something different each day . \""}
-{"answer": ["OWENS", "JOHNSON", "CHRISTIE"], "question": "List all the people names in the context", "id": "10906", "context": "ATHLETICS - CHRISTIE AND JOHNSON ASKED TO JOIN OWENS ' TRIBUTE ."}
-{"answer": [""], "question": "List all the organizations in the context", "id": "10906_", "context": "ATHLETICS - CHRISTIE AND JOHNSON ASKED TO JOIN OWENS ' TRIBUTE ."}
-{"answer": [""], "question": "List all the locations in the context", "id": "10906_", "context": "ATHLETICS - CHRISTIE AND JOHNSON ASKED TO JOIN OWENS ' TRIBUTE ."}
-{"answer": ["Glamorgan"], "question": "List all the organizations in the context", "id": "3744", "context": "52 not out ) v Glamorgan ."}
-{"answer": [""], "question": "List all the people names in the context", "id": "3744_", "context": "52 not out ) v Glamorgan ."}
-{"answer": [""], "question": "List all the locations in the context", "id": "3744_", "context": "52 not out ) v Glamorgan ."}
-{"answer": ["Britain"], "question": "List all the locations in the context", "id": "10919", "context": "\" Most of the Olympic champions of the past are coming including Britain 's ( 1980 champion ) Allan Wells ."}
-{"answer": ["Allan Wells"], "question": "List all the people names in the context", "id": "10920", "context": "\" Most of the Olympic champions of the past are coming including Britain 's ( 1980 champion ) Allan Wells ."}
-{"answer": [""], "question": "List all the organizations in the context", "id": "10920_", "context": "\" Most of the Olympic champions of the past are coming including Britain 's ( 1980 champion ) Allan Wells ."}
-{"answer": ["Gloria Bistrita"], "question": "List all the organizations in the context", "id": "543", "context": "Gloria Bistrita - Ilie Lazar ( 32nd ) , Eugen Voica ( 84th )"}
-{"answer": ["Ilie Lazar", "Eugen Voica"], "question": "List all the people names in the context", "id": "544", "context": "Gloria Bistrita - Ilie Lazar ( 32nd ) , Eugen Voica ( 84th )"}
-{"answer": [""], "question": "List all the locations in the context", "id": "544_", "context": "Gloria Bistrita - Ilie Lazar ( 32nd ) , Eugen Voica ( 84th )"}
-{"answer": ["Rodney Eyles", "Zarak Jahan Khan"], "question": "List all the people names in the context", "id": "10431", "context": "2 - Rodney Eyles ( Australia ) beat Zarak Jahan Khan ( Pakistan )"}
-{"answer": ["Pakistan", "Australia"], "question": "List all the locations in the context", "id": "10432", "context": "2 - Rodney Eyles ( Australia ) beat Zarak Jahan Khan ( Pakistan )"}
-{"answer": [""], "question": "List all the organizations in the context", "id": "10432_", "context": "2 - Rodney Eyles ( Australia ) beat Zarak Jahan Khan ( Pakistan )"}
-{"answer": ["Stephanie"], "question": "List all the people names in the context", "id": "11936", "context": "Stephanie of Monaco 's husband snapped cavorting ."}
-{"answer": ["Monaco"], "question": "List all the locations in the context", "id": "11937", "context": "Stephanie of Monaco 's husband snapped cavorting ."}
-{"answer": [""], "question": "List all the organizations in the context", "id": "11937_", "context": "Stephanie of Monaco 's husband snapped cavorting ."}
-{"answer": ["Liverpool", "Chelsea", "F.A.I."], "question": "List all the organizations in the context", "id": "2917", "context": "The F.A.I. statement said that Liverpool striker Mark Kennedy and Chelsea defender Terry Phelan were both receiving treatment for injuries and would not be travelling to Liechenstein for the game ."}
-{"answer": ["Mark Kennedy", "Terry Phelan"], "question": "List all the people names in the context", "id": "2918", "context": "The F.A.I. statement said that Liverpool striker Mark Kennedy and Chelsea defender Terry Phelan were both receiving treatment for injuries and would not be travelling to Liechenstein for the game ."}
-{"answer": ["Liechenstein"], "question": "List all the locations in the context", "id": "2919", "context": "The F.A.I. statement said that Liverpool striker Mark Kennedy and Chelsea defender Terry Phelan were both receiving treatment for injuries and would not be travelling to Liechenstein for the game ."}
-{"answer": ["S&P", "\"MOODY S\""], "question": "List all the organizations in the context", "id": "7888", "context": "MOODY 'S : A1 S&P : AA- FITCH : AA-"}
-{"answer": [""], "question": "List all the people names in the context", "id": "7888_", "context": "MOODY 'S : A1 S&P : AA- FITCH : AA-"}
-{"answer": [""], "question": "List all the locations in the context", "id": "7888_", "context": "MOODY 'S : A1 S&P : AA- FITCH : AA-"}
-{"answer": ["Estonia"], "question": "List all the locations in the context", "id": "11357", "context": "Estonia will hold the next round of an inconclusive state presidential race on September 20 , parliamentary officers of the Baltic state ruled on Wednesday ."}
-{"answer": [""], "question": "List all the people names in the context", "id": "11357_", "context": "Estonia will hold the next round of an inconclusive state presidential race on September 20 , parliamentary officers of the Baltic state ruled on Wednesday ."}
-{"answer": [""], "question": "List all the organizations in the context", "id": "11357_", "context": "Estonia will hold the next round of an inconclusive state presidential race on September 20 , parliamentary officers of the Baltic state ruled on Wednesday ."}
-{"answer": ["Jersey", "France"], "question": "List all the locations in the context", "id": "7386", "context": "The ferry , which was towed into port , had been bound for Jersey , another in a cluster of small British-ruled islands off north-west France ."}
-{"answer": [""], "question": "List all the people names in the context", "id": "7386_", "context": "The ferry , which was towed into port , had been bound for Jersey , another in a cluster of small British-ruled islands off north-west France ."}
-{"answer": [""], "question": "List all the organizations in the context", "id": "7386_", "context": "The ferry , which was towed into port , had been bound for Jersey , another in a cluster of small British-ruled islands off north-west France ."}
-{"answer": ["Thailand"], "question": "List all the locations in the context", "id": "13802", "context": "A consortium led by Thailand 's Siam Commercial Bank Plc has secured at auction the right to sell two state agency bond issues worth a combined 3.73 billion baht , an official at the bank said on Thursday ."}
-{"answer": ["Siam Commercial Bank Plc"], "question": "List all the organizations in the context", "id": "13803", "context": "A consortium led by Thailand 's Siam Commercial Bank Plc has secured at auction the right to sell two state agency bond issues worth a combined 3.73 billion baht , an official at the bank said on Thursday ."}
-{"answer": [""], "question": "List all the people names in the context", "id": "13803_", "context": "A consortium led by Thailand 's Siam Commercial Bank Plc has secured at auction the right to sell two state agency bond issues worth a combined 3.73 billion baht , an official at the bank said on Thursday ."}
-{"answer": ["BALTIMORE"], "question": "List all the organizations in the context", "id": "12686", "context": "BALTIMORE AT SEATTLE"}
-{"answer": ["SEATTLE"], "question": "List all the locations in the context", "id": "12687", "context": "BALTIMORE AT SEATTLE"}
-{"answer": [""], "question": "List all the people names in the context", "id": "12687_", "context": "BALTIMORE AT SEATTLE"}
-{"answer": ["Havel", "Fernando Henrique Cardoso"], "question": "List all the people names in the context", "id": "9208", "context": "Havel is due to meet with his Brazilian counterpart Fernando Henrique Cardoso in the capital Brasilia and will visit the cities of Manaus , Sao Paulo and Rio de Janeiro ."}
-{"answer": ["Sao Paulo", "Rio de Janeiro", "Brasilia"], "question": "List all the locations in the context", "id": "9209", "context": "Havel is due to meet with his Brazilian counterpart Fernando Henrique Cardoso in the capital Brasilia and will visit the cities of Manaus , Sao Paulo and Rio de Janeiro ."}
-{"answer": [""], "question": "List all the organizations in the context", "id": "9209_", "context": "Havel is due to meet with his Brazilian counterpart Fernando Henrique Cardoso in the capital Brasilia and will visit the cities of Manaus , Sao Paulo and Rio de Janeiro ."}
-{"answer": ["Larry Fine"], "question": "List all the people names in the context", "id": "7015", "context": "Larry Fine"}
-{"answer": [""], "question": "List all the organizations in the context", "id": "7015_", "context": "Larry Fine"}
-{"answer": [""], "question": "List all the locations in the context", "id": "7015_", "context": "Larry Fine"}
-{"answer": ["Jim Brady"], "question": "List all the people names in the context", "id": "9690", "context": "Jim Brady then gave a big thumbs to the audience ."}
-{"answer": [""], "question": "List all the organizations in the context", "id": "9690_", "context": "Jim Brady then gave a big thumbs to the audience ."}
-{"answer": [""], "question": "List all the locations in the context", "id": "9690_", "context": "Jim Brady then gave a big thumbs to the audience ."}
-{"answer": ["Leonard Santorelli"], "question": "List all the people names in the context", "id": "8061", "context": "Leonard Santorelli"}
-{"answer": [""], "question": "List all the organizations in the context", "id": "8061_", "context": "Leonard Santorelli"}
-{"answer": [""], "question": "List all the locations in the context", "id": "8061_", "context": "Leonard Santorelli"}
-{"answer": ["Rudolf Gajdos"], "question": "List all the people names in the context", "id": "9100", "context": "But they have difficulty remembering what happened there , perhaps because of drugs , and are unsure whether they were filmed for pornography , Rudolf Gajdos , head of the Slovak office of Interpol , told Reuters ."}
-{"answer": ["Reuters", "Interpol"], "question": "List all the organizations in the context", "id": "9101", "context": "But they have difficulty remembering what happened there , perhaps because of drugs , and are unsure whether they were filmed for pornography , Rudolf Gajdos , head of the Slovak office of Interpol , told Reuters ."}
-{"answer": [""], "question": "List all the locations in the context", "id": "9101_", "context": "But they have difficulty remembering what happened there , perhaps because of drugs , and are unsure whether they were filmed for pornography , Rudolf Gajdos , head of the Slovak office of Interpol , told Reuters ."}
-{"answer": ["Erik Camerlengo"], "question": "List all the people names in the context", "id": "4709", "context": "6. Erik Camerlengo ( Italy ) Yamaha"}
-{"answer": ["Italy"], "question": "List all the locations in the context", "id": "4710", "context": "6. Erik Camerlengo ( Italy ) Yamaha"}
-{"answer": ["Yamaha"], "question": "List all the organizations in the context", "id": "4711", "context": "6. Erik Camerlengo ( Italy ) Yamaha"}
-{"answer": ["Gloria Bistrita"], "question": "List all the organizations in the context", "id": "547", "context": "Gloria Bistrita win 4-2 on aggregate ."}
-{"answer": [""], "question": "List all the people names in the context", "id": "547_", "context": "Gloria Bistrita win 4-2 on aggregate ."}
-{"answer": [""], "question": "List all the locations in the context", "id": "547_", "context": "Gloria Bistrita win 4-2 on aggregate ."}
-{"answer": ["Sergi Bruguera", "Michael Chang"], "question": "List all the people names in the context", "id": "387", "context": "1 - Michael Chang ( U.S. ) beat Sergi Bruguera ( Spain ) 6-3 6-2"}
-{"answer": ["U.S.", "Spain"], "question": "List all the locations in the context", "id": "388", "context": "1 - Michael Chang ( U.S. ) beat Sergi Bruguera ( Spain ) 6-3 6-2"}
-{"answer": [""], "question": "List all the organizations in the context", "id": "388_", "context": "1 - Michael Chang ( U.S. ) beat Sergi Bruguera ( Spain ) 6-3 6-2"}
+{"answer": [""], "question": "List all the people names in the context", "id": "888_1", "context": "CINCINNATI AT ATLANTA"}
+{"answer": ["CINCINNATI"], "question": "List all the organizations in the context", "id": "888_2", "context": "CINCINNATI AT ATLANTA"}
+{"answer": ["ATLANTA"], "question": "List all the locations in the context", "id": "888_3", "context": "CINCINNATI AT ATLANTA"}
+{"answer": ["Mubarak"], "question": "List all the people names in the context", "id": "1427_1", "context": "Egypt says the Sudanese government helped the Moslem militants who tried to kill Mubarak in Addis Ababa last year ."}
+{"answer": [""], "question": "List all the organizations in the context", "id": "1427_2", "context": "Egypt says the Sudanese government helped the Moslem militants who tried to kill Mubarak in Addis Ababa last year ."}
+{"answer": ["Addis Ababa", "Egypt"], "question": "List all the locations in the context", "id": "1427_3", "context": "Egypt says the Sudanese government helped the Moslem militants who tried to kill Mubarak in Addis Ababa last year ."}
+{"answer": [""], "question": "List all the people names in the context", "id": "1334_1", "context": "DNEVNI AVAZ"}
+{"answer": ["DNEVNI AVAZ"], "question": "List all the organizations in the context", "id": "1334_2", "context": "DNEVNI AVAZ"}
+{"answer": [""], "question": "List all the locations in the context", "id": "1334_3", "context": "DNEVNI AVAZ"}
+{"answer": [""], "question": "List all the people names in the context", "id": "6745_1", "context": "Results of Ukraine premier division"}
+{"answer": [""], "question": "List all the organizations in the context", "id": "6745_2", "context": "Results of Ukraine premier division"}
+{"answer": ["Ukraine"], "question": "List all the locations in the context", "id": "6745_3", "context": "Results of Ukraine premier division"}
+{"answer": [""], "question": "List all the people names in the context", "id": "3067_1", "context": "CHESAPEAKE , Va ."}
+{"answer": [""], "question": "List all the organizations in the context", "id": "3067_2", "context": "CHESAPEAKE , Va ."}
+{"answer": ["CHESAPEAKE", "Va"], "question": "List all the locations in the context", "id": "3067_3", "context": "CHESAPEAKE , Va ."}
+{"answer": [""], "question": "List all the people names in the context", "id": "12906_1", "context": "Zaire installs first election delegates ."}
+{"answer": [""], "question": "List all the organizations in the context", "id": "12906_2", "context": "Zaire installs first election delegates ."}
+{"answer": ["Zaire"], "question": "List all the locations in the context", "id": "12906_3", "context": "Zaire installs first election delegates ."}
+{"answer": [""], "question": "List all the people names in the context", "id": "13868_1", "context": "EL MUNDO"}
+{"answer": ["EL MUNDO"], "question": "List all the organizations in the context", "id": "13868_2", "context": "EL MUNDO"}
+{"answer": [""], "question": "List all the locations in the context", "id": "13868_3", "context": "EL MUNDO"}
+{"answer": [""], "question": "List all the people names in the context", "id": "11782_1", "context": "\" On Friday , all Moslems , including Palestinians in Israel ..."}
+{"answer": [""], "question": "List all the organizations in the context", "id": "11782_2", "context": "\" On Friday , all Moslems , including Palestinians in Israel ..."}
+{"answer": ["Israel"], "question": "List all the locations in the context", "id": "11782_3", "context": "\" On Friday , all Moslems , including Palestinians in Israel ..."}
+{"answer": ["Gorre"], "question": "List all the people names in the context", "id": "5915_1", "context": "Groningen 1 ( Gorre 7th ) ."}
+{"answer": ["Groningen"], "question": "List all the organizations in the context", "id": "5915_2", "context": "Groningen 1 ( Gorre 7th ) ."}
+{"answer": [""], "question": "List all the locations in the context", "id": "5915_3", "context": "Groningen 1 ( Gorre 7th ) ."}
+{"answer": ["Clinton"], "question": "List all the people names in the context", "id": "4424_1", "context": "According to a senior campaign official , Clinton \" will be making a lot of news in the coming week -- something different each day . \""}
+{"answer": [""], "question": "List all the organizations in the context", "id": "4424_2", "context": "According to a senior campaign official , Clinton \" will be making a lot of news in the coming week -- something different each day . \""}
+{"answer": [""], "question": "List all the locations in the context", "id": "4424_3", "context": "According to a senior campaign official , Clinton \" will be making a lot of news in the coming week -- something different each day . \""}
+{"answer": ["OWENS", "JOHNSON", "CHRISTIE"], "question": "List all the people names in the context", "id": "10906_1", "context": "ATHLETICS - CHRISTIE AND JOHNSON ASKED TO JOIN OWENS ' TRIBUTE ."}
+{"answer": [""], "question": "List all the organizations in the context", "id": "10906_2", "context": "ATHLETICS - CHRISTIE AND JOHNSON ASKED TO JOIN OWENS ' TRIBUTE ."}
+{"answer": [""], "question": "List all the locations in the context", "id": "10906_3", "context": "ATHLETICS - CHRISTIE AND JOHNSON ASKED TO JOIN OWENS ' TRIBUTE ."}
+{"answer": [""], "question": "List all the people names in the context", "id": "3744_1", "context": "52 not out ) v Glamorgan ."}
+{"answer": ["Glamorgan"], "question": "List all the organizations in the context", "id": "3744_2", "context": "52 not out ) v Glamorgan ."}
+{"answer": [""], "question": "List all the locations in the context", "id": "3744_3", "context": "52 not out ) v Glamorgan ."}
+{"answer": ["Allan Wells"], "question": "List all the people names in the context", "id": "10919_1", "context": "\" Most of the Olympic champions of the past are coming including Britain 's ( 1980 champion ) Allan Wells ."}
+{"answer": [""], "question": "List all the organizations in the context", "id": "10919_2", "context": "\" Most of the Olympic champions of the past are coming including Britain 's ( 1980 champion ) Allan Wells ."}
+{"answer": ["Britain"], "question": "List all the locations in the context", "id": "10919_3", "context": "\" Most of the Olympic champions of the past are coming including Britain 's ( 1980 champion ) Allan Wells ."}
+{"answer": ["Ilie Lazar", "Eugen Voica"], "question": "List all the people names in the context", "id": "543_1", "context": "Gloria Bistrita - Ilie Lazar ( 32nd ) , Eugen Voica ( 84th )"}
+{"answer": ["Gloria Bistrita"], "question": "List all the organizations in the context", "id": "543_2", "context": "Gloria Bistrita - Ilie Lazar ( 32nd ) , Eugen Voica ( 84th )"}
+{"answer": [""], "question": "List all the locations in the context", "id": "543_3", "context": "Gloria Bistrita - Ilie Lazar ( 32nd ) , Eugen Voica ( 84th )"}
+{"answer": ["Rodney Eyles", "Zarak Jahan Khan"], "question": "List all the people names in the context", "id": "10431_1", "context": "2 - Rodney Eyles ( Australia ) beat Zarak Jahan Khan ( Pakistan )"}
+{"answer": [""], "question": "List all the organizations in the context", "id": "10431_2", "context": "2 - Rodney Eyles ( Australia ) beat Zarak Jahan Khan ( Pakistan )"}
+{"answer": ["Pakistan", "Australia"], "question": "List all the locations in the context", "id": "10431_3", "context": "2 - Rodney Eyles ( Australia ) beat Zarak Jahan Khan ( Pakistan )"}
+{"answer": ["Stephanie"], "question": "List all the people names in the context", "id": "11936_1", "context": "Stephanie of Monaco 's husband snapped cavorting ."}
+{"answer": [""], "question": "List all the organizations in the context", "id": "11936_2", "context": "Stephanie of Monaco 's husband snapped cavorting ."}
+{"answer": ["Monaco"], "question": "List all the locations in the context", "id": "11936_3", "context": "Stephanie of Monaco 's husband snapped cavorting ."}
+{"answer": ["Mark Kennedy", "Terry Phelan"], "question": "List all the people names in the context", "id": "2917_1", "context": "The F.A.I. statement said that Liverpool striker Mark Kennedy and Chelsea defender Terry Phelan were both receiving treatment for injuries and would not be travelling to Liechenstein for the game ."}
+{"answer": ["Liverpool", "Chelsea", "F.A.I."], "question": "List all the organizations in the context", "id": "2917_2", "context": "The F.A.I. statement said that Liverpool striker Mark Kennedy and Chelsea defender Terry Phelan were both receiving treatment for injuries and would not be travelling to Liechenstein for the game ."}
+{"answer": ["Liechenstein"], "question": "List all the locations in the context", "id": "2917_3", "context": "The F.A.I. statement said that Liverpool striker Mark Kennedy and Chelsea defender Terry Phelan were both receiving treatment for injuries and would not be travelling to Liechenstein for the game ."}
+{"answer": [""], "question": "List all the people names in the context", "id": "7888_1", "context": "MOODY 'S : A1 S&P : AA- FITCH : AA-"}
+{"answer": ["S&P", "\"MOODY S\""], "question": "List all the organizations in the context", "id": "7888_2", "context": "MOODY 'S : A1 S&P : AA- FITCH : AA-"}
+{"answer": [""], "question": "List all the locations in the context", "id": "7888_3", "context": "MOODY 'S : A1 S&P : AA- FITCH : AA-"}
+{"answer": [""], "question": "List all the people names in the context", "id": "11357_1", "context": "Estonia will hold the next round of an inconclusive state presidential race on September 20 , parliamentary officers of the Baltic state ruled on Wednesday ."}
+{"answer": [""], "question": "List all the organizations in the context", "id": "11357_2", "context": "Estonia will hold the next round of an inconclusive state presidential race on September 20 , parliamentary officers of the Baltic state ruled on Wednesday ."}
+{"answer": ["Estonia"], "question": "List all the locations in the context", "id": "11357_3", "context": "Estonia will hold the next round of an inconclusive state presidential race on September 20 , parliamentary officers of the Baltic state ruled on Wednesday ."}
+{"answer": [""], "question": "List all the people names in the context", "id": "7386_1", "context": "The ferry , which was towed into port , had been bound for Jersey , another in a cluster of small British-ruled islands off north-west France ."}
+{"answer": [""], "question": "List all the organizations in the context", "id": "7386_2", "context": "The ferry , which was towed into port , had been bound for Jersey , another in a cluster of small British-ruled islands off north-west France ."}
+{"answer": ["Jersey", "France"], "question": "List all the locations in the context", "id": "7386_3", "context": "The ferry , which was towed into port , had been bound for Jersey , another in a cluster of small British-ruled islands off north-west France ."}
+{"answer": [""], "question": "List all the people names in the context", "id": "13802_1", "context": "A consortium led by Thailand 's Siam Commercial Bank Plc has secured at auction the right to sell two state agency bond issues worth a combined 3.73 billion baht , an official at the bank said on Thursday ."}
+{"answer": ["Siam Commercial Bank Plc"], "question": "List all the organizations in the context", "id": "13802_2", "context": "A consortium led by Thailand 's Siam Commercial Bank Plc has secured at auction the right to sell two state agency bond issues worth a combined 3.73 billion baht , an official at the bank said on Thursday ."}
+{"answer": ["Thailand"], "question": "List all the locations in the context", "id": "13802_3", "context": "A consortium led by Thailand 's Siam Commercial Bank Plc has secured at auction the right to sell two state agency bond issues worth a combined 3.73 billion baht , an official at the bank said on Thursday ."}
+{"answer": [""], "question": "List all the people names in the context", "id": "12686_1", "context": "BALTIMORE AT SEATTLE"}
+{"answer": ["BALTIMORE"], "question": "List all the organizations in the context", "id": "12686_2", "context": "BALTIMORE AT SEATTLE"}
+{"answer": ["SEATTLE"], "question": "List all the locations in the context", "id": "12686_3", "context": "BALTIMORE AT SEATTLE"}
+{"answer": ["Havel", "Fernando Henrique Cardoso"], "question": "List all the people names in the context", "id": "9208_1", "context": "Havel is due to meet with his Brazilian counterpart Fernando Henrique Cardoso in the capital Brasilia and will visit the cities of Manaus , Sao Paulo and Rio de Janeiro ."}
+{"answer": [""], "question": "List all the organizations in the context", "id": "9208_2", "context": "Havel is due to meet with his Brazilian counterpart Fernando Henrique Cardoso in the capital Brasilia and will visit the cities of Manaus , Sao Paulo and Rio de Janeiro ."}
+{"answer": ["Sao Paulo", "Rio de Janeiro", "Brasilia"], "question": "List all the locations in the context", "id": "9208_3", "context": "Havel is due to meet with his Brazilian counterpart Fernando Henrique Cardoso in the capital Brasilia and will visit the cities of Manaus , Sao Paulo and Rio de Janeiro ."}
+{"answer": ["Larry Fine"], "question": "List all the people names in the context", "id": "7015_1", "context": "Larry Fine"}
+{"answer": [""], "question": "List all the organizations in the context", "id": "7015_2", "context": "Larry Fine"}
+{"answer": [""], "question": "List all the locations in the context", "id": "7015_3", "context": "Larry Fine"}
+{"answer": ["Jim Brady"], "question": "List all the people names in the context", "id": "9690_1", "context": "Jim Brady then gave a big thumbs to the audience ."}
+{"answer": [""], "question": "List all the organizations in the context", "id": "9690_2", "context": "Jim Brady then gave a big thumbs to the audience ."}
+{"answer": [""], "question": "List all the locations in the context", "id": "9690_3", "context": "Jim Brady then gave a big thumbs to the audience ."}
+{"answer": ["Leonard Santorelli"], "question": "List all the people names in the context", "id": "8061_1", "context": "Leonard Santorelli"}
+{"answer": [""], "question": "List all the organizations in the context", "id": "8061_2", "context": "Leonard Santorelli"}
+{"answer": [""], "question": "List all the locations in the context", "id": "8061_3", "context": "Leonard Santorelli"}
+{"answer": ["Rudolf Gajdos"], "question": "List all the people names in the context", "id": "9100_1", "context": "But they have difficulty remembering what happened there , perhaps because of drugs , and are unsure whether they were filmed for pornography , Rudolf Gajdos , head of the Slovak office of Interpol , told Reuters ."}
+{"answer": ["Reuters", "Interpol"], "question": "List all the organizations in the context", "id": "9100_2", "context": "But they have difficulty remembering what happened there , perhaps because of drugs , and are unsure whether they were filmed for pornography , Rudolf Gajdos , head of the Slovak office of Interpol , told Reuters ."}
+{"answer": [""], "question": "List all the locations in the context", "id": "9100_3", "context": "But they have difficulty remembering what happened there , perhaps because of drugs , and are unsure whether they were filmed for pornography , Rudolf Gajdos , head of the Slovak office of Interpol , told Reuters ."}
+{"answer": ["Erik Camerlengo"], "question": "List all the people names in the context", "id": "4709_1", "context": "6. Erik Camerlengo ( Italy ) Yamaha"}
+{"answer": ["Yamaha"], "question": "List all the organizations in the context", "id": "4709_2", "context": "6. Erik Camerlengo ( Italy ) Yamaha"}
+{"answer": ["Italy"], "question": "List all the locations in the context", "id": "4709_3", "context": "6. Erik Camerlengo ( Italy ) Yamaha"}
+{"answer": [""], "question": "List all the people names in the context", "id": "547_1", "context": "Gloria Bistrita win 4-2 on aggregate ."}
+{"answer": ["Gloria Bistrita"], "question": "List all the organizations in the context", "id": "547_2", "context": "Gloria Bistrita win 4-2 on aggregate ."}
+{"answer": [""], "question": "List all the locations in the context", "id": "547_3", "context": "Gloria Bistrita win 4-2 on aggregate ."}
+{"answer": ["Sergi Bruguera", "Michael Chang"], "question": "List all the people names in the context", "id": "387_1", "context": "1 - Michael Chang ( U.S. ) beat Sergi Bruguera ( Spain ) 6-3 6-2"}
+{"answer": [""], "question": "List all the organizations in the context", "id": "387_2", "context": "1 - Michael Chang ( U.S. ) beat Sergi Bruguera ( Spain ) 6-3 6-2"}
+{"answer": ["U.S.", "Spain"], "question": "List all the locations in the context", "id": "387_3", "context": "1 - Michael Chang ( U.S. ) beat Sergi Bruguera ( Spain ) 6-3 6-2"}
