@@ -53,9 +53,9 @@ Note, in this context, "external data" refers to data used *after pretraining* (
 
 
 ### Abbreviations
-- FT = (classic) finetuning
-- PT = prompt based tuning
-- ICL = in-context learning, in the style of GPT-3
+- FT = (classic) finetuning.
+- PT = prompt based tuning.
+- ICL = in-context learning, in the style of GPT-3.
 - μ±σ = mean μ and standard deviation σ across our 5 splits. Aggregate standard deviation is calculated using the sum-of-variance formula from individual tasks' standard deviations.
 
 ### Benchmarking CLUES for Aggregate 30-shot Evaluation
